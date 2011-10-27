@@ -6,7 +6,7 @@ $ ->
   asyncTest "link is submitted with GET method", ->
     expect 2
 
-    link = $("<a data-method=get href='/echo?callback=formSubmitted'>")[0]
+    link = $("<a data-method=get href='/echo?iframe=1&callback=formSubmitted'>")[0]
     document.body.appendChild link
 
     link.click()
@@ -23,7 +23,7 @@ $ ->
   asyncTest "link is submitted with POST method", ->
     expect 2
 
-    link = $("<a data-method=post href='/echo?callback=formSubmitted'>")[0]
+    link = $("<a data-method=post href='/echo?iframe=1&callback=formSubmitted'>")[0]
     document.body.appendChild link
 
     link.click()
@@ -40,7 +40,7 @@ $ ->
   asyncTest "link is submitted with PUT method", ->
     expect 2
 
-    link = $("<a data-method=put href='/echo?callback=formSubmitted'>")[0]
+    link = $("<a data-method=put href='/echo?iframe=1&callback=formSubmitted'>")[0]
     document.body.appendChild link
 
     link.click()
@@ -57,7 +57,7 @@ $ ->
   asyncTest "link is submitted with DELETE method", ->
     expect 2
 
-    link = $("<a data-method=delete href='/echo?callback=formSubmitted'>")[0]
+    link = $("<a data-method=delete href='/echo?iframe=1&callback=formSubmitted'>")[0]
     document.body.appendChild link
 
     link.click()

@@ -25,9 +25,15 @@ map "/echo" do
     req = Rack::Request.new(env)
     env['params'] = req.params
 
-    if env['QUERY_STRING'] =~ /callback=(\w+)/
+    iframe   = env['QUERY_STRING'][/iframe=1/, 0]
+    callback = env['QUERY_STRING'][/callback=(\w+)/, 1]
+
+    if iframe && callback
       html = "<script>window.top.#{$1}(#{env.to_json})</script>"
       [200, {'Content-Type' => 'text/html'}, [html]]
+    elsif callback
+      js = "#{$1}(#{env.to_json})"
+      [200, {'Content-Type' => 'application/javascript'}, [js]]
     else
       [200, {'Content-Type' => 'application/json'}, [env.to_json]]
     end

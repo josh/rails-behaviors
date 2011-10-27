@@ -50,7 +50,7 @@ $ ->
     metaToken = $("<meta name=csrf-token content=#{token}>")[0]
     document.head.appendChild metaToken
 
-    link = $("<a data-method=post href='/echo?callback=formSubmitted'>")[0]
+    link = $("<a data-method=post href='/echo?iframe=1&callback=formSubmitted'>")[0]
     document.body.appendChild link
 
     link.click()
