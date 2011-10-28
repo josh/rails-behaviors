@@ -1,72 +1,56 @@
 $ ->
-  module "Method"
+  fixture = $('#qunit-fixture')
 
   window.formSubmitted = ->
 
+  module "Method"
+    setup: ->
+      window.formSubmitted = ->
+
+    teardown: ->
+      $(document).undelegate '.test'
+      $('#qunit-fixture').html ""
+
   asyncTest "link is submitted with GET method", ->
-    expect 2
+    link = $("<a data-method=get href='/echo?iframe=1&callback=formSubmitted'>")
+    fixture.append link
 
-    link = $("<a data-method=get href='/echo?iframe=1&callback=formSubmitted'>")[0]
-    document.body.appendChild link
-
-    link.click()
+    link[0].click()
 
     window.formSubmitted = (data) ->
       equal 'GET', data.REQUEST_METHOD
       equal '/echo', data.REQUEST_PATH
-
-      $(link).remove()
-      window.formSubmitted = ->
-
       start()
 
   asyncTest "link is submitted with POST method", ->
-    expect 2
+    link = $("<a data-method=post href='/echo?iframe=1&callback=formSubmitted'>")
+    fixture.append link
 
-    link = $("<a data-method=post href='/echo?iframe=1&callback=formSubmitted'>")[0]
-    document.body.appendChild link
-
-    link.click()
+    link[0].click()
 
     window.formSubmitted = (data) ->
       equal 'POST', data.REQUEST_METHOD
       equal '/echo', data.REQUEST_PATH
-
-      $(link).remove()
-      window.formSubmitted = ->
-
       start()
 
   asyncTest "link is submitted with PUT method", ->
-    expect 2
+    link = $("<a data-method=put href='/echo?iframe=1&callback=formSubmitted'>")
+    fixture.append link
 
-    link = $("<a data-method=put href='/echo?iframe=1&callback=formSubmitted'>")[0]
-    document.body.appendChild link
-
-    link.click()
+    link[0].click()
 
     window.formSubmitted = (data) ->
       equal 'PUT', data.REQUEST_METHOD
       equal '/echo', data.REQUEST_PATH
-
-      $(link).remove()
-      window.formSubmitted = ->
-
       start()
 
   asyncTest "link is submitted with DELETE method", ->
-    expect 2
-
-    link = $("<a data-method=delete href='/echo?iframe=1&callback=formSubmitted'>")[0]
-    document.body.appendChild link
+    link = $("<a data-method=delete href='/echo?iframe=1&callback=formSubmitted'>")
+    fixture.append link
 
     link.click()
 
     window.formSubmitted = (data) ->
       equal 'DELETE', data.REQUEST_METHOD
       equal '/echo', data.REQUEST_PATH
-
-      $(link).remove()
-      window.formSubmitted = ->
-
       start()
