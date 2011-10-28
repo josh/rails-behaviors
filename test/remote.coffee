@@ -71,3 +71,40 @@ $ ->
 
     link.click()
 
+  asyncTest "link is submitted via AJAX that accepts JSON", ->
+    expect 2
+
+    link = $("<a data-remote href='/echo' data-type=json>")[0]
+    document.body.appendChild link
+
+    $(document).delegate 'a', 'ajaxSuccess.test', (event, xhr, settings, data) ->
+      equal 'GET', data.REQUEST_METHOD
+      equal '/echo', data.REQUEST_PATH
+
+      $(document).undelegate 'ajaxSuccess.test'
+      $(link).remove()
+
+      start()
+
+    link.click()
+
+  asyncTest "link is prevented from being submitted", ->
+    expect 1
+    link = $("<a data-remote href='/echo'>")[0]
+    document.body.appendChild link
+
+    $(document).delegate 'a', 'ajaxBeforeSend.test', ->
+      ok true
+      false
+
+    $(document).delegate 'a', 'ajaxSuccess.test', ->
+      ok false
+
+    link.click()
+
+    setTimeout ->
+      $(document).undelegate 'ajaxBeforeSend.test'
+      $(document).undelegate 'ajaxSuccess.test'
+      $(link).remove()
+      start()
+    , 50
