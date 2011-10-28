@@ -6,16 +6,18 @@ require 'uglifier'
 
 root = File.expand_path("..", __FILE__)
 Assets = Sprockets::Environment.new(root) do |env|
-  env.append_path "lib"
+  env.append_path "src"
 end
 
 CLEAN.include "lib/rails/*.js"
 CLOBBER.include "dist/*"
 
 task :build do
-  Dir["#{root}/lib/rails/*.coffee"].each do |file|
-    Assets[file].write_to(file.sub(/\.coffee$/, '.js'))
+  Dir["#{root}/src/rails/*.coffee"].each do |file|
+    output = file.sub('src', 'lib').sub(/\.coffee$/, '.js')
+    Assets[file].write_to(output)
   end
+  FileUtils.cp "#{root}/src/rails.js", "#{root}/lib"
 end
 
 task :dist do
