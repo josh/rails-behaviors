@@ -23,35 +23,18 @@ beforeSend = (element) -> (xhr, settings) ->
   element.trigger event, xhr, settings
   event.result
 
-$(document).on 'click', 'a[data-method]', (event) ->
-  element = $(this)
-
-  # Don't handle remote requests
-  return if element.is 'a[data-remote]'
-
-  form = document.createElement 'form'
-  $(form).attr
-    method: 'post'
-    action: element.attr 'href'
-    style:  'display:none;'
-
-  input = document.createElement 'input'
-  $(input).attr
-    type:  'hidden'
-    name:  '_method'
-    value: element.attr 'data-method'
-  form.appendChild input
-
-  document.body.appendChild form
-  $(form).submit()
-
-  return false
-
+# Intercept all clicked links with data-remote and turn
+# it into a XHR request instead.
 $(document).on 'click', 'a[data-remote]', (event) ->
   element  = $(this)
   settings = {}
 
+  # Setting `context` to the element will cause all global
+  # AJAX events to bubble up from it.
   settings.context = this
+
+  # Use our `beforeSend` helper that emits a
+  # global `ajaxBeforeSend` event
   settings.beforeSend = beforeSend element
 
   # Allow AJAX method to be changed using the `data-method` attribute
@@ -68,15 +51,24 @@ $(document).on 'click', 'a[data-remote]', (event) ->
   if dataType = element.data 'type'
     settings.dataType = dataType
 
+  # Do it
   $.ajax settings
 
+  # Prevent default action so we don't follow the link
   return false
 
+# Intercept all form submissions with data-remote and turn
+# it into a XHR request instead.
 $(document).on 'submit', 'form[data-remote]', (event) ->
   form     = $(this)
   settings = {}
 
+  # Setting `context` to the form will cause all global
+  # AJAX events to bubble up from it.
   settings.context = this
+
+  # Use our `beforeSend` helper that emits a
+  # global `ajaxBeforeSend` event
   settings.beforeSend = beforeSend form
 
   # Use form method as the AJAX method
@@ -96,6 +88,8 @@ $(document).on 'submit', 'form[data-remote]', (event) ->
   if dataType = form.data 'type'
     settings.dataType = dataType
 
+  # Do it
   $.ajax settings
 
+  # Prevent default action and don't actually submit the form
   return false
