@@ -22,7 +22,7 @@ $.ajaxPrefilter (options, originalOptions, xhr) ->
 
 # Listen for form submissions and inject hidden `authenticity_token`
 # input into forms missing them.
-$(document).on 'submit', 'form', (event) ->
+$(document).delegate 'form', 'submit', (event) ->
   form = $(this)
 
   # Don't handle remote requests. They'll have a header set instead.
