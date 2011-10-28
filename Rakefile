@@ -31,7 +31,7 @@ task :test => :build do
   Dir.chdir File.dirname(__FILE__)
 
   pid = fork do
-    exec 'rackup', '-p', '3000', 'config.ru'
+    exec 'rackup', '-p', '3000', './test/config.ru'
   end
 
   sleep 2
