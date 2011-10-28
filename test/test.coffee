@@ -3,12 +3,13 @@
 #= require rails
 #= require_directory .
 
-# Simulate mouse clicks
-HTMLElement.prototype.click = ->
-  event = @ownerDocument.createEvent 'MouseEvents'
-  event.initMouseEvent 'click', true, true, @ownerDocument.defaultView, 1, 0, 0, 0, 0, false, false, false, false, 0, null
-  @dispatchEvent event
-  return
+unless document.createElement('a').click
+  # Simulate mouse clicks
+  HTMLElement.prototype.click = ->
+    event = @ownerDocument.createEvent 'MouseEvents'
+    event.initMouseEvent 'click', true, true, @ownerDocument.defaultView, 1, 0, 0, 0, 0, false, false, false, false, 0, null
+    @dispatchEvent event
+    return
 
 # Target form submissions to iframe
 $(document).bind 'submit', (event) ->
