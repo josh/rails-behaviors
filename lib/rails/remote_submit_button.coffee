@@ -2,22 +2,22 @@
 #
 # For regular form submissions, the name and value of the clicked
 # submit button is passed along in the params. The key and value is
-# typically something like submit=Comment. This is almost never used
+# typically something like `submit=Comment`. This is almost never used
 # when there is only one button.
 #
 # When there are two buttons, the input names are different to
-# indicate which button was pressed. One value might be "comment" and
-# the other "cancel".
+# indicate which button was pressed. One value might be `comment` and
+# the other `cancel`.
 #
 # For AJAX form submissions this value isn't recorded
-# anywhere. jQuery's $.serialize only returns the params for inputs
+# anywhere. jQuery's `$.serialize` only returns the params for inputs
 # that are on the page.
 #
 # We can work around this by inserting a dummy input on 'click' so
 # jQuery can send it along to the server.
 #
 # This workaround only needs to happen on AJAX forms, so
-# 'data-remote=true' must be set on the form to enable it.
+# `data-remote=true` must be set on the form to enable it.
 
 submitSelectors = [
   'form[data-remote] input[type=submit]',
@@ -25,6 +25,7 @@ submitSelectors = [
   'form[data-remote] button:not([type])'
 ]
 
+# Listen for all submit buttons clicks that bubble up to the doucment.
 $(document).on 'click', submitSelectors.join(', '), ->
   submit = $(this)
   form   = submit.closest 'form'
@@ -50,4 +51,5 @@ $(document).on 'click', submitSelectors.join(', '), ->
     # value is submitted.
     input.remove()
 
+  # Return `undefined` so we don't stop the event propagation.
   return
