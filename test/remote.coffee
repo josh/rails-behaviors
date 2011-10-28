@@ -79,7 +79,7 @@ $ ->
 
     link[0].click()
 
-    setTimeout start, 50
+    setTimeout (-> start()), 50
 
 
   asyncTest "form is submitted via AJAX with GET method", ->
@@ -155,4 +155,4 @@ $ ->
 
     $(form).submit()
 
-    setTimeout start, 50
+    setTimeout (-> start()), 50

@@ -27,7 +27,7 @@ $ ->
 
   asyncTest "doesn't add X-CSRF-Token to cross domain JSONP requests", ->
     token = "2705a83a5a0659cce34583972637eda5"
-    meta = $("<meta name=csrf-token content=#{token}>")[0]
+    meta = $("<meta name=csrf-token content=#{token}>")
     fixture.append meta
 
     $.ajax
@@ -38,11 +38,11 @@ $ ->
         start()
 
   asyncTest "link is submitted with CSRF token", ->
-    metaParam = $("<meta content=authenticity_token name=csrf-param>")[0]
+    metaParam = $("<meta content=authenticity_token name=csrf-param>")
     fixture.append metaParam
 
     token = "2705a83a5a0659cce34583972637eda5"
-    metaToken = $("<meta name=csrf-token content=#{token}>")[0]
+    metaToken = $("<meta name=csrf-token content=#{token}>")
     fixture.append metaToken
 
     link = $("<a data-method=post href='/echo?iframe=1&callback=formSubmitted'>")
