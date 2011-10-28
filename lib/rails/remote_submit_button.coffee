@@ -26,7 +26,7 @@ submitSelectors = [
 ]
 
 # Listen for all submit buttons clicks that bubble up to the doucment.
-$(document).on 'click', submitSelectors.join(', '), ->
+$(document).delegate submitSelectors.join(', '), 'click', ->
   submit = $(this)
   form   = submit.closest 'form'
   input  = form.find '.js-submit-button-value'

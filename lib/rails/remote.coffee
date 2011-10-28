@@ -38,7 +38,7 @@ beforeSend = (element) -> (xhr, settings) ->
 
 # Intercept all clicked links with data-remote and turn
 # it into a XHR request instead.
-$(document).on 'click', 'a[data-remote]', (event) ->
+$(document).delegate 'a[data-remote]', 'click', (event) ->
   element  = $(this)
   settings = {}
 
@@ -72,7 +72,7 @@ $(document).on 'click', 'a[data-remote]', (event) ->
 
 # Intercept all form submissions with data-remote and turn
 # it into a XHR request instead.
-$(document).on 'submit', 'form[data-remote]', (event) ->
+$(document).delegate 'form[data-remote]', 'submit', (event) ->
   form     = $(this)
   settings = {}
 

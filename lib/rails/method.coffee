@@ -12,7 +12,7 @@
 #     <%= link_to "Delete", "/posts/1", :method => :delete %>
 #
 
-$(document).on 'click', 'a[data-method]', (event) ->
+$(document).delegate 'a[data-method]', 'click', (event) ->
   element = $(this)
 
   # Don't handle remote requests
