@@ -42,17 +42,6 @@ $(document).on 'click', 'a[data-method]', (event) ->
     value: element.attr 'data-method'
   form.appendChild input
 
-  csrfToken = $('meta[name="csrf-token"]').attr 'content'
-  csrfParam = $('meta[name="csrf-param"]').attr 'content'
-
-  if csrfToken? and csrfParam?
-    input = document.createElement 'input'
-    $(input).attr
-      type:  'hidden'
-      name:  csrfParam
-      value: csrfToken
-    form.appendChild input
-
   document.body.appendChild form
   $(form).submit()
 
