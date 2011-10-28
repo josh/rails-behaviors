@@ -25,17 +25,18 @@ $ ->
       ok !env['HTTP_X_CSRF_TOKEN']
       start()
 
-  asyncTest "doesn't add X-CSRF-Token to cross domain JSONP requests", ->
-    token = "2705a83a5a0659cce34583972637eda5"
-    meta = $("<meta name=csrf-token content=#{token}>")
-    fixture.append meta
+  if jQuery.support.cors
+    asyncTest "doesn't add X-CSRF-Token to cross domain JSONP requests", ->
+      token = "2705a83a5a0659cce34583972637eda5"
+      meta = $("<meta name=csrf-token content=#{token}>")
+      fixture.append meta
 
-    $.ajax
-      url: "/echo"
-      crossDomain: true
-      success: (env) ->
-        ok !env['HTTP_X_CSRF_TOKEN']
-        start()
+      $.ajax
+        url: "/echo"
+        crossDomain: true
+        success: (env) ->
+          ok !env['HTTP_X_CSRF_TOKEN']
+          start()
 
   asyncTest "link is submitted with CSRF token", ->
     metaParam = $("<meta content=authenticity_token name=csrf-param>")
