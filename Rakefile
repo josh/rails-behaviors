@@ -9,8 +9,7 @@ Assets = Sprockets::Environment.new(root) do |env|
   env.append_path "src"
 end
 
-CLEAN.include "lib/rails/*.js"
-CLOBBER.include "dist/*"
+CLEAN.include "dist/*"
 
 task :build do
   Dir["#{root}/src/rails/*.coffee"].each do |file|
