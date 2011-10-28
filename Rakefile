@@ -20,7 +20,7 @@ task :build do
   FileUtils.cp "#{root}/src/rails.js", "#{root}/lib"
 end
 
-task :dist do
+task :dist => :build do
   Assets['rails.js'].write_to('dist/rails.js')
   Assets.js_compressor = Uglifier.new
   Assets['rails.js'].write_to('dist/rails.min.js')
@@ -28,7 +28,7 @@ end
 
 task :default => :dist
 
-task :test do
+task :test => :build do
   Dir.chdir File.dirname(__FILE__)
 
   pid = fork do
