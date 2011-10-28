@@ -1,19 +1,30 @@
-task :default => :dist
+require 'rake/clean'
+
+require 'sprockets'
+require 'coffee-script'
+require 'uglifier'
+
+root = File.expand_path("..", __FILE__)
+Assets = Sprockets::Environment.new(root) do |env|
+  env.append_path "lib"
+end
+
+CLEAN.include "lib/rails/*.js"
+CLOBBER.include "dist/*"
+
+task :build do
+  Dir["#{root}/lib/rails/*.coffee"].each do |file|
+    Assets[file].write_to(file.sub(/\.coffee$/, '.js'))
+  end
+end
 
 task :dist do
-  require 'sprockets'
-  require 'coffee-script'
-  require 'uglifier'
-
-  root = File.expand_path("..", __FILE__)
-  env = Sprockets::Environment.new(root)
-  env.append_path "lib"
-
-  env['rails.js'].write_to('dist/rails.js')
-
-  env.js_compressor = Uglifier.new
-  env['rails.js'].write_to('dist/rails.min.js')
+  Assets['rails.js'].write_to('dist/rails.js')
+  Assets.js_compressor = Uglifier.new
+  Assets['rails.js'].write_to('dist/rails.min.js')
 end
+
+task :default => :dist
 
 task :test do
   Dir.chdir File.dirname(__FILE__)

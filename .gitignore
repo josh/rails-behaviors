@@ -1,2 +1,3 @@
 dist/
+lib/rails/*.js
 Gemfile.lock
