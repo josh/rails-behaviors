@@ -1,21 +1,34 @@
-# Implements data-remote forms and links
+# Implements `data-remote` for forms and links.
 #
-# Compatible with most of the UJS options Rails 3 provides.
+#     <a href="/toggle" data-remote>Toggle</a>
 #
-# Fork/rewrite of jquery-ujs rails adapter. Does alot less and may
-# contain some GitHub specific conventions. Also full of Coffee Love.
-# https://github.com/rails/jquery-ujs/blob/master/src/rails.js
+#     <form action="/comment" data-remote></form>
 #
-# jQuery UJS provides custom ajax:* methods to hook into. However,
-# jQuery already provides most of these global ajax events, so we'll
-# use those instead. There is no global version of `beforeSend`, so
-# `ajaxBeforeSend` is added to complement it.
-# Reference: http://docs.jquery.com/Ajax_Events
+# Use delegated jQuery's global AJAX events to handle successful
+# and error states.
+#
+#     $(document).on 'ajaxBeforeSend', '.new-comment', ->
+#        $(this).addClass 'loading'
+#
+#     $(document).on 'ajaxComplete', '.new-comment', ->
+#        $(this).removeClass 'loading'
+#
+#     $(document).on 'ajaxSuccess', '.new-comment', (e, xhr, opts, data) ->
+#       $('.comments).append data.commentHTML
+#
+#     $(document).on 'ajaxError', '.new-comment', ->
+#       alert "Something went wrong!"
+#
 
+# jQuery already provides a handful of global AJAX events. However,
+# there is no global version of `beforeSend`, so `ajaxBeforeSend` is
+# added to complement it.
+#
+# Reference: http://docs.jquery.com/Ajax_Events
 beforeSend = (element) -> (xhr, settings) ->
-  # Don't like that this needs to be restated, but overriding
-  # beforeSend clears our global configuration in application.js
-  if settings.dataType is undefined
+  # It'd be nice if we could set this globally once with `ajaxSetup`.
+  # But it gets overriden too easy. Dunno.
+  unless settings.dataType
     xhr.setRequestHeader 'Accept', '*/*;q=0.5, ' + settings.accepts.script
 
   # Provide a global version of the `beforeSend` callback
