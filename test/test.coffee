@@ -12,7 +12,7 @@ unless document.createElement('a').click
     return
 
 # Target form submissions to iframe
-$(document).bind 'submit', (event) ->
+$(document).on 'submit', (event) ->
   unless event.isDefaultPrevented()
     name   = "frame#{jQuery.guid++}"
     iframe = $ "<iframe id=#{name} name=#{name}>"

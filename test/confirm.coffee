@@ -51,7 +51,7 @@ $ ->
     fixture.append link
 
     handlerCalled = false
-    $(document).delegate 'a', 'click.test', ->
+    $(document).on 'click.test', 'a', ->
       handlerCalled = true
 
     link[0].click()
@@ -64,7 +64,7 @@ $ ->
     fixture.append link
 
     handlerCalled = false
-    $(document).delegate 'a', 'click.test', ->
+    $(document).on 'click.test', 'a', ->
       handlerCalled = true
 
     link[0].click()

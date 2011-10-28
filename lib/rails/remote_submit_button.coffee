@@ -25,7 +25,7 @@ submitSelectors = [
   'form[data-remote] button:not([type])'
 ]
 
-$(document).delegate submitSelectors.join(', '), 'click', ->
+$(document).on 'click', submitSelectors.join(', '), ->
   submit = $(this)
   form   = submit.closest 'form'
   input  = form.find '.js-submit-button-value'

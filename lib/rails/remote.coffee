@@ -23,7 +23,7 @@ beforeSend = (element) -> (xhr, settings) ->
   element.trigger event, xhr, settings
   event.result
 
-$(document).delegate 'a[data-method]', 'click', (event) ->
+$(document).on 'click', 'a[data-method]', (event) ->
   element = $(this)
 
   # Don't handle remote requests
@@ -58,7 +58,7 @@ $(document).delegate 'a[data-method]', 'click', (event) ->
 
   return false
 
-$(document).delegate 'a[data-remote]', 'click', (event) ->
+$(document).on 'click', 'a[data-remote]', (event) ->
   element  = $(this)
   settings = {}
 
@@ -83,7 +83,7 @@ $(document).delegate 'a[data-remote]', 'click', (event) ->
 
   return false
 
-$(document).delegate 'form[data-remote]', 'submit', (event) ->
+$(document).on 'submit', 'form[data-remote]', (event) ->
   form     = $(this)
   settings = {}
 

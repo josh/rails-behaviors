@@ -59,7 +59,7 @@ $ ->
     link = $("<a data-remote href='/echo' data-type=json>")
     fixture.append link
 
-    $(document).delegate 'a', 'ajaxSuccess.test', (event, xhr, settings, data) ->
+    $(document).on 'ajaxSuccess.test', 'a', (event, xhr, settings, data) ->
       equal 'GET', data.REQUEST_METHOD
       equal '/echo', data.REQUEST_PATH
       start()
@@ -70,11 +70,11 @@ $ ->
     link = $("<a data-remote href='/echo'>")
     fixture.append link
 
-    $(document).delegate 'a', 'ajaxBeforeSend.test', ->
+    $(document).on 'ajaxBeforeSend.test', 'a', ->
       ok true
       false
 
-    $(document).delegate 'a', 'ajaxSuccess.test', ->
+    $(document).on 'ajaxSuccess.test', 'a', ->
       ok false
 
     link[0].click()
@@ -134,7 +134,7 @@ $ ->
     form = $("<form data-remote data-type=json action='/echo'><input name=foo value=bar></form>")
     fixture.append form
 
-    $(document).delegate 'form', 'ajaxSuccess.test', (event, xhr, settings, data) ->
+    $(document).on 'ajaxSuccess.test', 'form', (event, xhr, settings, data) ->
       equal 'GET', data.REQUEST_METHOD
       equal '/echo', data.REQUEST_PATH
       equal 'bar', data.params['foo']
@@ -146,11 +146,11 @@ $ ->
     form = $("<form data-remote data-type=json action='/echo'><input name=foo value=bar></form>")
     fixture.append form
 
-    $(document).delegate 'form', 'ajaxBeforeSend.test', ->
+    $(document).on 'ajaxBeforeSend.test', 'form', ->
       ok true
       false
 
-    $(document).delegate 'form', 'ajaxSuccess.test', ->
+    $(document).on 'ajaxSuccess.test', 'form', ->
       ok false
 
     $(form).submit()
