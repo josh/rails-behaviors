@@ -3,3 +3,4 @@
 //= require rails/method
 //= require rails/remote
 //= require rails/remote_submit_button
+//= require rails/disable
