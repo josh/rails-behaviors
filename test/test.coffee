@@ -1,4 +1,3 @@
-#= require jquery
 #= require qunit
 #= require rails
 #= require_directory .
