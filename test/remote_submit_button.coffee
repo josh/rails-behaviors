@@ -16,7 +16,7 @@ $ ->
     fixture.append form
 
     window.formSubmitted = (data) ->
-      equal "", data.params['submit']
+      equal data.params['submit'], ""
       start()
 
     $(form).find('button[name=submit]').trigger 'click'
@@ -26,7 +26,7 @@ $ ->
     fixture.append form
 
     window.formSubmitted = (data) ->
-      equal "comment", data.params['submit']
+      equal data.params['submit'], "comment"
       start()
 
     $(form).find('button[name=submit][value=comment]').trigger 'click'
@@ -36,7 +36,7 @@ $ ->
     fixture.append form
 
     window.formSubmitted = (data) ->
-      equal "cancel", data.params['submit']
+      equal data.params['submit'], "cancel"
       start()
 
     $(form).find('button[name=submit][value=cancel]').trigger 'click'
