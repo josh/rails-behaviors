@@ -16,3 +16,8 @@ $(document).bind 'submit', (event) ->
   iframe = $ "<iframe id=#{name} name=#{name}>"
   $(event.target).attr 'target', name
   $('#qunit-fixture').append iframe
+
+if Zepto?
+  $(document).bind 'ajaxSuccess', (event, xhr) ->
+    if xhr.getResponseHeader('Content-Type') is 'application/javascript'
+      eval xhr.responseText
