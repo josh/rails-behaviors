@@ -12,9 +12,10 @@ unless document.createElement('a').click
     return
 
 # Target form submissions to iframe
+guid = 1
 $(document).bind 'submit', (event) ->
   unless event.isDefaultPrevented()
-    name   = "frame#{jQuery.guid++}"
+    name   = "frame#{guid++}"
     iframe = $ "<iframe id=#{name} name=#{name}>"
     $(event.target).attr 'target', name
     $('#qunit-fixture').append iframe
