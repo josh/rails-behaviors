@@ -38,4 +38,5 @@ $(document).delegate 'a[data-method]', 'click', (event) ->
   $(form).submit()
 
   # Prevent default action so we don't follow the link
+  event.preventDefault()
   return false

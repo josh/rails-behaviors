@@ -49,6 +49,7 @@ $(document).delegate 'a[data-remote]', 'click', (event) ->
   $.ajax settings
 
   # Prevent default action so we don't follow the link
+  event.preventDefault()
   return false
 
 # Intercept all form submissions with data-remote and turn
@@ -82,4 +83,5 @@ $(document).delegate 'form[data-remote]', 'submit', (event) ->
   $.ajax settings
 
   # Prevent default action and don't actually submit the form
+  event.preventDefault()
   return false
