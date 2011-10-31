@@ -10,7 +10,7 @@ $(document).delegate 'form', 'submit', ->
     # If the text is empty, don't change anything
     if value = input.attr 'data-disable-with'
       input.val value
-    input.prop 'disabled', true
+    input[0].disabled = true
 
   for button in $(this).find 'button[type=submit][data-disable-with]'
     button = $ button
@@ -19,7 +19,7 @@ $(document).delegate 'form', 'submit', ->
     # If the text is empty, don't change anything
     if value = button.attr 'data-disable-with'
       button.text value
-    button.prop 'disabled', true
+    button[0].disabled = true
 
   # Return `undefined` so we don't stop the event propagation.
   return
@@ -30,13 +30,13 @@ $(document).delegate 'form', 'ajaxComplete', ->
   for input in $(this).find 'input[type=submit][data-enable-with]'
     input = $ input
     input.val input.attr 'data-enable-with'
-    input.prop 'disabled', false
+    input[0].disabled = false
 
   # Find submit buttons to re-enable
   for button in $(this).find 'button[type=submit][data-enable-with]'
     button = $ button
     button.text button.attr 'data-enable-with'
-    button.prop 'disabled', false
+    button[0].disabled = false
 
   # Return `undefined` in case.
   return
