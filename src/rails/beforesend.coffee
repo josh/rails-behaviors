@@ -3,7 +3,8 @@
 # added to complement it.
 #
 # Reference: http://docs.jquery.com/Ajax_Events
-# return unless $.ajaxSetup
+
+return unless $.ajaxSetup
 
 $.ajaxSetup
   beforeSend: (xhr, settings) ->
