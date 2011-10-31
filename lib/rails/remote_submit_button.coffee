@@ -19,14 +19,14 @@
 # This workaround only needs to happen on AJAX forms, so
 # `data-remote=true` must be set on the form to enable it.
 
-submitSelectors = [
-  'form[data-remote] input[type=submit]',
-  'form[data-remote] button[type=submit]',
-  'form[data-remote] button:not([type])'
-]
+submitSelectors = """
+  form[data-remote] input[type=submit],
+  form[data-remote] button[type=submit],
+  form[data-remote] button:not([type])
+"""
 
 # Listen for all submit buttons clicks that bubble up to the doucment.
-$(document).delegate submitSelectors.join(', '), 'click', ->
+$(document).delegate submitSelectors, 'click', ->
   submit = $(this)
   form   = submit.closest 'form'
   input  = form.find '.js-submit-button-value'
