@@ -64,7 +64,7 @@ task :gem => :build do
   Gem::Builder.new(spec).build
 end
 
-task :dist => :build do
+task :dist do
   FileUtils.mkdir_p 'dist/'
   Assets['rails.js'].write_to('dist/rails.js')
   Assets.js_compressor = Uglifier.new
