@@ -20,7 +20,7 @@ $ ->
       equal '/echo', data.REQUEST_PATH
       start()
 
-    link[0].click()
+    link.click()
 
   asyncTest "link is submitted via AJAX with POST method", ->
     link = $("<a data-remote data-method=post href='/echo?callback=formSubmitted'>")
@@ -31,7 +31,7 @@ $ ->
       equal '/echo', data.REQUEST_PATH
       start()
 
-    link[0].click()
+    link.click()
 
   asyncTest "link is submitted via AJAX with PUT method", ->
     link = $("<a data-remote data-method=put href='/echo?callback=formSubmitted'>")
@@ -42,7 +42,7 @@ $ ->
       equal '/echo', data.REQUEST_PATH
       start()
 
-    link[0].click()
+    link.click()
 
   asyncTest "link is submitted via AJAX with DELETE method", ->
     link = $("<a data-remote data-method=delete href='/echo?callback=formSubmitted'>")
@@ -53,7 +53,7 @@ $ ->
       equal '/echo', data.REQUEST_PATH
       start()
 
-    link[0].click()
+    link.click()
 
   asyncTest "link is submitted via AJAX that accepts JSON", ->
     link = $("<a data-remote href='/echo' data-type=json>")
@@ -64,7 +64,7 @@ $ ->
       equal '/echo', data.REQUEST_PATH
       start()
 
-    link[0].click()
+    link.click()
 
   asyncTest "link is prevented from being submitted", ->
     link = $("<a data-remote href='/echo'>")
@@ -77,7 +77,7 @@ $ ->
     $(document).delegate 'a', 'ajaxSuccess.test', ->
       ok false
 
-    link[0].click()
+    link.click()
 
     setTimeout (-> start()), 50
 

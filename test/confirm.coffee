@@ -22,7 +22,7 @@ $ ->
     link = $("<a data-confirm='Are you sure?' href='javascript:clickLink();'>")
     fixture.append link
 
-    link[0].click()
+    link.click()
 
     setTimeout ->
       ok linkClicked
@@ -36,7 +36,7 @@ $ ->
     link = $("<a data-confirm='Are you sure?' href='javascript:clickLink();'>")
     fixture.append link
 
-    link[0].click()
+    link.click()
 
     setTimeout ->
       ok !linkClicked
@@ -54,7 +54,7 @@ $ ->
     $(document).delegate 'a', 'click.test', ->
       handlerCalled = true
 
-    link[0].click()
+    link.click()
     ok handlerCalled
 
   test "doesn't run other handlers action if confirm returns false", ->
@@ -67,5 +67,5 @@ $ ->
     $(document).delegate 'a', 'click.test', ->
       handlerCalled = true
 
-    link[0].click()
+    link.click()
     ok !handlerCalled

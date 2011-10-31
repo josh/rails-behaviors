@@ -57,7 +57,7 @@ $ ->
     link = $("<a data-method=post href='/echo?iframe=1&callback=formSubmitted'>")
     fixture.append link
 
-    link[0].click()
+    link.click()
 
     window.formSubmitted = (data) ->
       equal token, data.params['authenticity_token']
