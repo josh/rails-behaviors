@@ -10,6 +10,3 @@ $(document).delegate 'a[data-confirm]', 'click', (event) ->
       event.stopImmediatePropagation()
       # Prevent default action from running
       return false
-
-  # Return `undefined` so we don't stop the event propagation.
-  return

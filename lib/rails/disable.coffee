@@ -21,9 +21,6 @@ $(document).delegate 'form', 'submit', ->
       button.text value
     button[0].disabled = true
 
-  # Return `undefined` so we don't stop the event propagation.
-  return
-
 # Renable controls when AJAX request finishes
 $(document).delegate 'form', 'ajaxComplete', ->
   # Find all submit inputs to re-enable
@@ -37,6 +34,3 @@ $(document).delegate 'form', 'ajaxComplete', ->
     button = $ button
     button.text button.attr 'data-enable-with'
     button[0].disabled = false
-
-  # Return `undefined` in case.
-  return

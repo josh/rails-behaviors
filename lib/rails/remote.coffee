@@ -52,7 +52,7 @@ $(document).delegate 'a[data-remote]', 'click', (event) ->
 
   # Prevent default action so we don't follow the link
   event.preventDefault()
-  return false
+  false
 
 # Intercept all form submissions with data-remote and turn
 # it into a XHR request instead.
@@ -86,4 +86,4 @@ $(document).delegate 'form[data-remote]', 'submit', (event) ->
 
   # Prevent default action and don't actually submit the form
   event.preventDefault()
-  return false
+  false

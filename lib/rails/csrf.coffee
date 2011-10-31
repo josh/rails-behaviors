@@ -22,8 +22,6 @@ $(document).bind 'ajaxBeforeSend', (event, xhr, settings) ->
     # Send the token along in a header.
     xhr.setRequestHeader 'X-CSRF-Token', token
 
-  return
-
 # Listen for form submissions and inject hidden `authenticity_token`
 # input into forms missing them.
 $(document).delegate 'form', 'submit', (event) ->
@@ -42,6 +40,3 @@ $(document).delegate 'form', 'submit', (event) ->
     # Check if theres already a `authenticity_token` input field
     unless form.find("input[name=#{param}]")[0]
       form.prepend "<input type='hidden' name='#{param}' value='#{token}'>"
-
-  # Return `undefined` so we don't stop the event propagation.
-  return

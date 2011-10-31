@@ -39,4 +39,4 @@ $(document).delegate 'a[data-method]', 'click', (event) ->
 
   # Prevent default action so we don't follow the link
   event.preventDefault()
-  return false
+  false

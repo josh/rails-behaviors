@@ -50,6 +50,3 @@ $(document).delegate submitSelectors.join(', '), 'click', ->
     # Submit button has no name, remove any hidden inputs so no
     # value is submitted.
     input.remove()
-
-  # Return `undefined` so we don't stop the event propagation.
-  return
