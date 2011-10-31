@@ -6,7 +6,7 @@ Root = File.expand_path("../..", __FILE__)
 
 Assets = Sprockets::Environment.new(Root) do |env|
   env.append_path "test"
-  env.append_path "src"
+  env.append_path "lib"
   env.append_path "vendor"
 end
 

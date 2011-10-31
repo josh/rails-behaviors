@@ -1,4 +1,6 @@
+require 'rubygems'
 require 'rake/clean'
+require 'rubygems/package_task'
 
 require 'sprockets'
 require 'coffee-script'
@@ -6,20 +8,37 @@ require 'uglifier'
 
 root = File.expand_path("..", __FILE__)
 Assets = Sprockets::Environment.new(root) do |env|
-  env.append_path "src"
+  env.append_path "lib"
 end
 
 CLEAN.include "dist/*"
+CLEAN.include "lib/rails/*.js"
 
 task :build do
-  Dir["#{root}/src/rails/*.coffee"].each do |file|
-    output = file.sub('src', 'lib').sub(/\.coffee$/, '.js')
+  Dir["#{root}/lib/rails/*.coffee"].each do |file|
+    output = file.sub(/\.coffee$/, '.js')
     Assets[file].write_to(output)
   end
-  FileUtils.cp "#{root}/src/rails.js", "#{root}/lib"
+end
+
+desc "Build the gem"
+task :gem => :build do
+  abort "Only build the gem with 1.8" unless RUBY_VERSION == '1.8.7'
+
+  spec = Gem::Specification.load('rails-behaviors.gemspec')
+
+  # Mark coffee-script as a development depedency
+  coffee = spec.dependencies.detect { |dep| dep.name == 'coffee-script' }
+  coffee.instance_variable_set :'@type', :development
+
+  # Only include Ruby and JS files (skip Coffee)
+  spec.files = Dir["README.md", "lib/**/*.{rb,js}"]
+
+  Gem::Builder.new(spec).build
 end
 
 task :dist => :build do
+  FileUtils.mkdir_p 'dist/'
   Assets['rails.js'].write_to('dist/rails.js')
   Assets.js_compressor = Uglifier.new
   Assets['rails.js'].write_to('dist/rails.min.js')

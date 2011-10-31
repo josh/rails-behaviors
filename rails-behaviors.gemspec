@@ -6,10 +6,10 @@ Gem::Specification.new do |s|
   s.summary  = "Rails UJS Behaviors for jQuery"
   s.description = "Implements Rails UJS Behaviors"
 
-  s.files = Dir["README.md", "lib/**/*.{rb,js}"]
+  s.files = Dir["README.md", "lib/**/*"]
 
   s.add_dependency "sprockets", "~>2.0"
-  s.add_development_dependency "coffee-script"
+  s.add_dependency "coffee-script", "~>2.2"
   s.add_development_dependency "rake"
   s.add_development_dependency "uglifier"
 
