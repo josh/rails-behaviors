@@ -1,3 +1,5 @@
+#= require ./beforesend
+#
 # Adds CSRF tokens to AJAX requests and forms missing them.
 #
 # CSRF tokens must be set in the document head as meta tags.
@@ -8,10 +10,10 @@
 
 # The AJAX prefilter filter will run before all jQuery XHR requests and
 # allows the request to be modified.
-$.ajaxPrefilter (options, originalOptions, xhr) ->
+$(document).bind 'ajaxBeforeSend', (event, xhr, settings) ->
   # Skip for cross domain requests. Other sites can't do much
   # with our token.
-  return if options.crossDomain
+  return if settings.crossDomain
 
   # Get token from meta element on the page.
   #
@@ -19,6 +21,8 @@ $.ajaxPrefilter (options, originalOptions, xhr) ->
   if token = $('meta[name="csrf-token"]').attr 'content'
     # Send the token along in a header.
     xhr.setRequestHeader 'X-CSRF-Token', token
+
+  return
 
 # Listen for form submissions and inject hidden `authenticity_token`
 # input into forms missing them.
