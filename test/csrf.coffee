@@ -8,7 +8,7 @@ $ ->
       window.formSubmitted = ->
 
     teardown: ->
-      $(document).undelegate '.test'
+      $(document).unbind '.test'
       $('#qunit-fixture').html ""
 
   asyncTest "adds X-CSRF-Token to AJAX requests if token header is present", ->

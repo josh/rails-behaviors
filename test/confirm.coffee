@@ -13,7 +13,7 @@ $ ->
     teardown: ->
       delete window.confirm
 
-      $(document).undelegate '.test'
+      $(document).unbind '.test'
       $('#qunit-fixture').html ""
 
   asyncTest "run default action if confirm returns true", ->

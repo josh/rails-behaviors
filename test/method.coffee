@@ -8,7 +8,7 @@ $ ->
       window.formSubmitted = ->
 
     teardown: ->
-      $(document).undelegate '.test'
+      $(document).unbind '.test'
       $('#qunit-fixture').html ""
 
   asyncTest "link is submitted with GET method", ->

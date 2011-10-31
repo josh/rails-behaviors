@@ -8,7 +8,7 @@ $ ->
       window.formSubmitted = ->
 
     teardown: ->
-      $(document).undelegate '.test'
+      $(document).unbind '.test'
       $('#qunit-fixture').html ""
 
   asyncTest "submit input with default value is disabled", ->
