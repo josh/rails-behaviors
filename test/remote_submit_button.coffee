@@ -19,7 +19,7 @@ $ ->
       equal "", data.params['submit']
       start()
 
-    $(form).find('button[name=submit]')[0].click()
+    $(form).find('button[name=submit]').trigger 'click'
 
   asyncTest "form submit comment button value is serialized", ->
     form = $("<form data-remote action='/echo?callback=formSubmitted'><button type=submit name=submit value=comment>Comment</button><button type=submit name=submit value=cancel>Cancel</button></form>")
@@ -29,7 +29,7 @@ $ ->
       equal "comment", data.params['submit']
       start()
 
-    $(form).find('button[name=submit]')[0].click()
+    $(form).find('button[name=submit][value=comment]').trigger 'click'
 
   asyncTest "form submit cancel button value is serialized", ->
     form = $("<form data-remote action='/echo?callback=formSubmitted'><button type=submit name=submit value=comment>Comment</button><button type=submit name=submit value=cancel>Cancel</button></form>")
@@ -39,4 +39,4 @@ $ ->
       equal "cancel", data.params['submit']
       start()
 
-    $(form).find('button[name=submit]')[1].click()
+    $(form).find('button[name=submit][value=cancel]').trigger 'click'

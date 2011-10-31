@@ -15,7 +15,7 @@ $ ->
     link = $("<a data-method=get href='/echo?iframe=1&callback=formSubmitted'>")
     fixture.append link
 
-    link.click()
+    link.trigger 'click'
 
     window.formSubmitted = (data) ->
       equal 'GET', data.REQUEST_METHOD
@@ -26,7 +26,7 @@ $ ->
     link = $("<a data-method=post href='/echo?iframe=1&callback=formSubmitted'>")
     fixture.append link
 
-    link.click()
+    link.trigger 'click'
 
     window.formSubmitted = (data) ->
       equal 'POST', data.REQUEST_METHOD
@@ -37,7 +37,7 @@ $ ->
     link = $("<a data-method=put href='/echo?iframe=1&callback=formSubmitted'>")
     fixture.append link
 
-    link.click()
+    link.trigger 'click'
 
     window.formSubmitted = (data) ->
       equal 'PUT', data.REQUEST_METHOD
@@ -48,7 +48,7 @@ $ ->
     link = $("<a data-method=delete href='/echo?iframe=1&callback=formSubmitted'>")
     fixture.append link
 
-    link.click()
+    link.trigger 'click'
 
     window.formSubmitted = (data) ->
       equal 'DELETE', data.REQUEST_METHOD
