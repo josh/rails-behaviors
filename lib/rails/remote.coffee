@@ -1,3 +1,5 @@
+#= require ./beforesend
+#
 # Implements `data-remote` for forms and links.
 #
 #     <a href="/toggle" data-remote>Toggle</a>

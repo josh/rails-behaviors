@@ -14,7 +14,34 @@ end
 CLEAN.include "dist/*"
 CLEAN.include "lib/rails/*.js"
 
+class IgnoreDirectives < Sprockets::DirectiveProcessor
+  def evaluate(context, locals, &block)
+    result = super
+    context.instance_variable_set(:'@directives', @directives)
+    result
+  end
+
+  # Don't run any directives
+  def process_directives
+  end
+end
+
+class InjectDirectives < Tilt::Template
+  def prepare
+  end
+
+  def evaluate(context, locals, &block)
+    directives = context.instance_variable_get(:'@directives')
+    directives = directives.map { |lineno, name, arg| "//= #{name} #{arg}\n" }.join
+    directives + data
+  end
+end
+
 task :build do
+  Assets.unregister_processor('application/javascript', Sprockets::DirectiveProcessor)
+  Assets.register_processor('application/javascript', IgnoreDirectives)
+  Assets.register_postprocessor('application/javascript', InjectDirectives)
+
   Dir["#{root}/lib/rails/*.coffee"].each do |file|
     output = file.sub(/\.coffee$/, '.js')
     Assets[file].write_to(output)

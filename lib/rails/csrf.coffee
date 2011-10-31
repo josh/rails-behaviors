@@ -1,3 +1,5 @@
+#= require ./beforesend
+#
 # Adds CSRF tokens to AJAX requests and forms missing them.
 #
 # CSRF tokens must be set in the document head as meta tags.
