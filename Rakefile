@@ -89,3 +89,34 @@ task :test => :build do
   Process.kill 'SIGINT', pid
   Process.wait pid
 end
+
+task "test:headless" do
+  require 'rubygems'
+  require 'rubygems/specification'
+
+  # HACK: jasmine-headless-webkit doesn't let us access its compiled specrunner directly
+  if jasmine_gem = Gem::Specification.find_by_name('jasmine-headless-webkit')
+    headless_root = jasmine_gem.full_gem_path
+    runner = File.join(headless_root, 'ext/jasmine-webkit-specrunner/jasmine-webkit-specrunner')
+  else
+    abort "Can't find 'jasmine-headless-webkit' gem"
+  end
+  
+  Dir.chdir File.dirname(__FILE__)
+
+  pid = fork do
+    $stderr.reopen "/dev/null" # silence WEBrick output
+    exec 'rackup', '-p', '3000', './test/config.ru'
+  end
+  sleep 2
+
+  failed = false
+  for backend in %w[jquery zepto]
+    failed = true unless system runner, '-c', "http://localhost:3000/#{backend}"
+  end
+
+  Process.kill 'SIGINT', pid
+  Process.wait pid
+
+  abort "Failed." if failed
+end
