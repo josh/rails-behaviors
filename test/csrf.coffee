@@ -16,16 +16,24 @@ $ ->
     meta = $("<meta name=csrf-token content=#{token}>")
     fixture.append meta
 
-    $.post "/echo", (env) ->
-      equal token, env['HTTP_X_CSRF_TOKEN']
-      start()
+    $.ajax
+      type: 'POST'
+      url: "/echo"
+      dataType: 'json'
+      success: (env) ->
+        equal token, env['HTTP_X_CSRF_TOKEN']
+        start()
 
   asyncTest "doesn't add X-CSRF-Token to AJAX requests if no token header is present", ->
-    $.post "/echo", (env) ->
-      ok !env['HTTP_X_CSRF_TOKEN']
-      start()
+    $.ajax
+      type: 'POST'
+      url: "/echo"
+      dataType: 'json'
+      success: (env) ->
+        ok !env['HTTP_X_CSRF_TOKEN']
+        start()
 
-  if jQuery.support.cors
+  if $.support?.cors
     asyncTest "doesn't add X-CSRF-Token to cross domain JSONP requests", ->
       token = "2705a83a5a0659cce34583972637eda5"
       meta = $("<meta name=csrf-token content=#{token}>")
