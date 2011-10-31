@@ -13,7 +13,7 @@ $ ->
 
   asyncTest "adds X-CSRF-Token to AJAX requests if token header is present", ->
     token = "2705a83a5a0659cce34583972637eda5"
-    meta = $("<meta name=csrf-token content=#{token}>")
+    meta = $('<meta>').attr name: 'csrf-token', content: token
     fixture.append meta
 
     $.ajax

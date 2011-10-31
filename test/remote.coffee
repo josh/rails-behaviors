@@ -119,13 +119,12 @@ $ ->
     $(form).submit()
 
   asyncTest "form is submitted via AJAX with DELETE method", ->
-    form = $("<form data-remote method=delete action='/echo?callback=formSubmitted'><input name=foo value=bar></form>")
+    form = $("<form data-remote method=delete action='/echo?callback=formSubmitted'></form>")
     fixture.append form
 
     window.formSubmitted = (data) ->
       equal 'DELETE', data.REQUEST_METHOD
       equal '/echo', data.REQUEST_PATH
-      equal 'bar', data.params['foo']
       start()
 
     $(form).submit()
