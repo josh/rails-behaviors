@@ -25,6 +25,5 @@
 #
 
 $(document).bind 'ajaxBeforeSend', (event, xhr, settings) ->
-  console.log settings.accepts.script
   unless settings.dataType
     xhr.setRequestHeader 'Accept', '*/*;q=0.5, ' + settings.accepts.script
