@@ -35,7 +35,7 @@ $(document).delegate 'a[data-remote]', 'click', (event) ->
 
   # Allow AJAX method to be changed using the `data-method` attribute
   #   <a href="/comment" data-remote data-method="post">
-  if type = element.data 'method'
+  if type = element.attr 'data-method'
     settings.type = type
 
   # Use anchor href as the AJAX url
