@@ -32,7 +32,7 @@ An alternative option is just to download the compiled single JS file under [Dow
 
 ## Migrating from jquery-ujs
 
-This library handles all the `data-*` behaviors defined in Rails. So its roughy feature for feature identicial with respect to the HTML.
+This library handles all the `data-*` behaviors defined in Rails. So its roughly feature for feature identicial with respect to the HTML.
 
 The differences are in the JS interface.
 
