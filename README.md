@@ -7,7 +7,7 @@ This is an alternative to [jquery-ujs](https://github.com/rails/jquery-ujs). Fir
 
 ## Dependencies
 
-**jQuery 1.6.4** and up or **Zepto 0.8** and up.
+**jQuery 1.6.4** or **Zepto 0.8**
 
 *(I'll probably be requiring jQuery 1.7 once its officially released)*
 
@@ -32,7 +32,7 @@ An alternative option is just to download the compiled single JS file under [Dow
 
 ## Migrating from jquery-ujs
 
-This library handles all the `data-*` behaviors defined in Rails. So its feature its roughly identicial with respect to the HTML.
+This library handles all the `data-*` behaviors defined in Rails. So its roughy feature for feature identicial with respect to the HTML.
 
 The differences are in the JS interface.
 
