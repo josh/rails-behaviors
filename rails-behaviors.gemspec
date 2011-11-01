@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.version = Rails::Behaviors::VERSION
 
   s.homepage = "https://github.com/josh/rails-behaviors"
-  s.summary  = "Rails UJS Behaviors for jQuery"
+  s.summary  = "Rails UJS Behaviors"
   s.description = "Implements Rails UJS Behaviors"
 
   s.files = Dir["README.md", "lib/**/*"]
