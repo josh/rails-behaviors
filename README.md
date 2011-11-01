@@ -61,3 +61,9 @@ See the [jQuery docs](http://docs.jquery.com/Ajax_Events) for more info.
 `data-disable-with`: [Source](https://github.com/josh/rails-behaviors/blob/master/lib/rails/disable.coffee)
 `data-method`: [Source](https://github.com/josh/rails-behaviors/blob/master/lib/rails/method.coffee)
 `data-remote`: [Source](https://github.com/josh/rails-behaviors/blob/master/lib/rails/remote.coffee)
+
+## License
+
+Copyright &copy; 2011 Joshua Peek <<josh@joshpeek.com>>
+
+Rails Behaviors is distributed under an MIT-style license. See LICENSE for details.
