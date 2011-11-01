@@ -44,7 +44,7 @@ $(document).delegate 'a[data-remote]', 'click', (event) ->
 
   # Allow dataType to be changed using the `data-type` attribute
   #   <a href="/comment" data-remote data-type="json">
-  if dataType = element.data 'type'
+  if dataType = element.attr 'data-type'
     settings.dataType = dataType
 
   # Do it
@@ -78,7 +78,7 @@ $(document).delegate 'form[data-remote]', 'submit', (event) ->
 
   # Allow dataType to be changed using the `data-type` attribute
   #   <a href="/comment" data-remote data-type="json">
-  if dataType = form.data 'type'
+  if dataType = form.attr 'data-type'
     settings.dataType = dataType
 
   # Do it
