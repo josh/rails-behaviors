@@ -1,4 +1,3 @@
 dist/
 lib/rails/*.js
-!lib/rails/version.js
 Gemfile.lock
