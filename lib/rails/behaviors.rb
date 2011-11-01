@@ -2,6 +2,10 @@ module Rails
   module Behaviors
     PATH = File.expand_path("../..", __FILE__)
 
+    # Exposes JS load path for Sprockets.
+    #
+    #   Assets.append_path Rails::Behaviors.path
+    #
     def self.path
       PATH
     end
