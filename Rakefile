@@ -1,6 +1,6 @@
 require 'rubygems'
+require 'rubygems/specification'
 require 'rake/clean'
-require 'rubygems/package_task'
 
 require 'sprockets'
 require 'coffee-script'
@@ -52,6 +52,8 @@ desc "Build the gem"
 task :gem => :build do
   abort "Only build the gem with 1.8" unless RUBY_VERSION == '1.8.7'
 
+  require 'rubygems/package_task'
+
   spec = Gem::Specification.load('rails-behaviors.gemspec')
 
   # Mark coffee-script as a development depedency
@@ -91,9 +93,6 @@ task :test => :build do
 end
 
 task "test:headless" do
-  require 'rubygems'
-  require 'rubygems/specification'
-
   # HACK: jasmine-headless-webkit doesn't let us access its compiled specrunner directly
   if jasmine_gem = Gem::Specification.find_by_name('jasmine-headless-webkit')
     headless_root = jasmine_gem.full_gem_path
@@ -101,7 +100,7 @@ task "test:headless" do
   else
     abort "Can't find 'jasmine-headless-webkit' gem"
   end
-  
+
   Dir.chdir File.dirname(__FILE__)
 
   pid = fork do
