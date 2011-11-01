@@ -62,6 +62,20 @@ See the [jQuery docs](http://docs.jquery.com/Ajax_Events) for more info.
 `data-method`: [Source](https://github.com/josh/rails-behaviors/blob/master/lib/rails/method.coffee)
 `data-remote`: [Source](https://github.com/josh/rails-behaviors/blob/master/lib/rails/remote.coffee)
 
+## Contributing
+
+    $ git clone git://github.com/josh/rails-behaviors.git
+    $ cd rails-behaviors/
+    $ bundle install
+
+Compile and minify
+
+    $ bundle exec rake dist
+
+Run tests
+
+    $ bundle exec rake test
+
 ## License
 
 Copyright &copy; 2011 Joshua Peek <<josh@joshpeek.com>>
