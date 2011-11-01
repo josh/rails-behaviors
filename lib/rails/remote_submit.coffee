@@ -50,3 +50,5 @@ $(document).delegate submitSelectors, 'click', ->
     # Submit button has no name, remove any hidden inputs so no
     # value is submitted.
     input.remove()
+
+  return
