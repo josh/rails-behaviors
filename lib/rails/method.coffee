@@ -20,17 +20,15 @@ $(document).delegate 'a[data-method]', 'click', (event) ->
 
   # Create a dummy form
   form = document.createElement 'form'
-  $(form).attr
-    method: 'post'
-    action: element.attr 'href'
-    style:  'display:none;'
+  form.method = 'POST'
+  form.action = element.attr 'href'
+  form.style.display = 'none'
 
   # Set `_method` to simulate other methods like PUT and DELETE.
   input = document.createElement 'input'
-  $(input).attr
-    type:  'hidden'
-    name:  '_method'
-    value: element.attr 'data-method'
+  input.setAttribute 'type', 'hidden'
+  input.setAttribute 'name', '_method'
+  input.setAttribute 'value', element.attr 'data-method'
   form.appendChild input
 
   # Add it to the document and fire it off

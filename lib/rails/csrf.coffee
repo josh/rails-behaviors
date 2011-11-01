@@ -39,4 +39,10 @@ $(document).delegate 'form', 'submit', (event) ->
   if param? and token?
     # Check if theres already a `authenticity_token` input field
     unless form.find("input[name=#{param}]")[0]
-      form.prepend "<input type='hidden' name='#{param}' value='#{token}'>"
+      input = document.createElement 'input'
+      input.setAttribute 'type', 'hidden'
+      input.setAttribute 'name', param
+      input.setAttribute 'value', token
+      form.prepend input
+
+  return

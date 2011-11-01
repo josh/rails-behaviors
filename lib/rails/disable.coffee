@@ -27,14 +27,12 @@ $(document).delegate 'form', 'submit', ->
 $(document).delegate 'form', 'ajaxComplete', ->
   # Find all submit inputs to re-enable
   for input in $(this).find 'input[type=submit][data-enable-with]'
-    input = $ input
-    input.val input.attr 'data-enable-with'
-    input[0].disabled = false
+    $(input).val $(input).attr 'data-enable-with'
+    input.disabled = false
 
   # Find submit buttons to re-enable
   for button in $(this).find 'button[type=submit][data-enable-with]'
-    button = $ button
-    button.text button.attr 'data-enable-with'
-    button[0].disabled = false
+    $(button).text $(button).attr 'data-enable-with'
+    button.disabled = false
 
   return

@@ -40,7 +40,12 @@ $(document).delegate submitSelectors, 'click', ->
 
     if not input[0]
       # Insert a dummy input so $.fn.serialize picks up the value
-      form.prepend "<input class='js-submit-button-value' type='hidden' name='#{name}' value='#{value}'>"
+      input = document.createElement 'input'
+      input.setAttribute 'type', 'hidden'
+      input.setAttribute 'name', name
+      input.setAttribute 'value', value
+      input.setAttribute 'class', 'js-submit-button-value'
+      form.prepend input
     else
       # A hidden input already exists in the form, we can just
       # update the value.
