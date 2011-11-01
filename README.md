@@ -57,10 +57,10 @@ See the [jQuery docs](http://docs.jquery.com/Ajax_Events) for more info.
 
 ### Behaviors
 
-`data-confirm`: [Source](https://github.com/josh/rails-behaviors/blob/master/lib/rails/confirm.coffee)
-`data-disable-with`: [Source](https://github.com/josh/rails-behaviors/blob/master/lib/rails/disable.coffee)
-`data-method`: [Source](https://github.com/josh/rails-behaviors/blob/master/lib/rails/method.coffee)
-`data-remote`: [Source](https://github.com/josh/rails-behaviors/blob/master/lib/rails/remote.coffee)
+* `data-confirm`: [Source](https://github.com/josh/rails-behaviors/blob/master/lib/rails/confirm.coffee)
+* `data-disable-with`: [Source](https://github.com/josh/rails-behaviors/blob/master/lib/rails/disable.coffee)
+* `data-method`: [Source](https://github.com/josh/rails-behaviors/blob/master/lib/rails/method.coffee)
+* `data-remote`: [Source](https://github.com/josh/rails-behaviors/blob/master/lib/rails/remote.coffee)
 
 ## Contributing
 
