@@ -1,6 +1,7 @@
 module Rails
   module Behaviors
     PATH = File.expand_path("../..", __FILE__)
+    VERSION = File.readlines("#{PATH}/rails/version.js")[1][/v([\d\.]+)$/,1]
 
     # Exposes JS load path for Sprockets.
     #

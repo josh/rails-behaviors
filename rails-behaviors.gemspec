@@ -1,6 +1,8 @@
+require File.expand_path("../lib/rails/behaviors", __FILE__)
+
 Gem::Specification.new do |s|
   s.name    = "rails-behaviors"
-  s.version = "0.1.0"
+  s.version = Rails::Behaviors::VERSION
 
   s.homepage = "https://github.com/josh/rails-behaviors"
   s.summary  = "Rails UJS Behaviors for jQuery"
