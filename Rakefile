@@ -73,7 +73,7 @@ task :dist do
   Assets['rails.js'].write_to('dist/rails.min.js')
 end
 
-task :default => :dist
+task :default => :test
 
 task :test do
   # HACK: jasmine-headless-webkit doesn't let us access its compiled specrunner directly
