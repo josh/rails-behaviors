@@ -1,0 +1,4 @@
+env: CI=1
+
+notifications:
+  disabled: true
