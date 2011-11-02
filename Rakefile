@@ -75,24 +75,7 @@ end
 
 task :default => :dist
 
-task :test => :build do
-  Dir.chdir File.dirname(__FILE__)
-
-  pid = fork do
-    exec 'rackup', '-p', '3000', './test/config.ru'
-  end
-
-  sleep 2
-
-  system 'open', 'http://localhost:3000/'
-
-  sleep 3
-
-  Process.kill 'SIGINT', pid
-  Process.wait pid
-end
-
-task "test:headless" do
+task :test do
   # HACK: jasmine-headless-webkit doesn't let us access its compiled specrunner directly
   if jasmine_gem = Gem::Specification.find_by_name('jasmine-headless-webkit')
     headless_root = jasmine_gem.full_gem_path
