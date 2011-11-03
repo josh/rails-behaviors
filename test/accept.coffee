@@ -6,7 +6,13 @@ $ ->
       type: 'POST'
       url: "/echo"
       success: (env) ->
-        equal  "*/*;q=0.5, text/javascript, application/javascript, application/ecmascript, application/x-ecmascript", env['HTTP_ACCEPT']
+        if typeof env is 'string'
+          env = JSON.parse env
+
+        if Zepto?
+          equal env['HTTP_ACCEPT'], "*/*;q=0.5, text/javascript, application/javascript"
+        else
+          equal env['HTTP_ACCEPT'], "*/*;q=0.5, text/javascript, application/javascript, application/ecmascript, application/x-ecmascript"
         start()
 
   asyncTest "dataType overrides defautl accept header", ->
@@ -15,5 +21,8 @@ $ ->
       url: "/echo"
       dataType: 'json'
       success: (env) ->
-        equal  "application/json, text/javascript, */*; q=0.01", env['HTTP_ACCEPT']
+        if Zepto?
+          equal env['HTTP_ACCEPT'], "application/json"
+        else
+          equal env['HTTP_ACCEPT'], "application/json, text/javascript, */*; q=0.01"
         start()
