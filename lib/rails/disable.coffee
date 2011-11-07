@@ -15,10 +15,10 @@ $(document).delegate 'form', 'submit', ->
   for button in $(this).find 'button[type=submit][data-disable-with]'
     button = $ button
     # Get button text, default to '' text otherwise
-    button.attr 'data-enable-with', button.text() or ''
+    button.attr 'data-enable-with', button.html() or ''
     # If the text is empty, don't change anything
     if value = button.attr 'data-disable-with'
-      button.text value
+      button.html value
     button[0].disabled = true
 
   return
@@ -32,7 +32,7 @@ $(document).delegate 'form', 'ajaxComplete', ->
 
   # Find submit buttons to re-enable
   for button in $(this).find 'button[type=submit][data-enable-with]'
-    $(button).text $(button).attr 'data-enable-with'
+    $(button).html $(button).attr 'data-enable-with'
     button.disabled = false
 
   return
