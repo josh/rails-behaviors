@@ -9,25 +9,25 @@
 # Skip for Zepto which doesn't have ajaxSetup but does already support
 # `ajaxBeforeSend`. It'd be better to feature test for the event and
 # see if we need to install it.
-return unless $.ajaxSetup
+if $.ajaxSetup
 
-# One caveat about using `$.ajaxSetup` is that its easily clobbered.
-# If anything else tries to register another global `beforeSend`
-# handler, ours will be overriden.
-#
-# To work around this, register your global `beforeSend` handler with:
-#
-#     $(document).bind('ajaxBeforeSend', function() {})
-#
-$.ajaxSetup
-  beforeSend: (xhr, settings) ->
-    # Skip if global events are disabled
-    return unless settings.global
+  # One caveat about using `$.ajaxSetup` is that its easily clobbered.
+  # If anything else tries to register another global `beforeSend`
+  # handler, ours will be overriden.
+  #
+  # To work around this, register your global `beforeSend` handler with:
+  #
+  #     $(document).bind('ajaxBeforeSend', function() {})
+  #
+  $.ajaxSetup
+    beforeSend: (xhr, settings) ->
+      # Skip if global events are disabled
+      return unless settings.global
 
-    # Default to document if context isn't set
-    element = settings.context || document
+      # Default to document if context isn't set
+      element = settings.context || document
 
-    # Provide a global version of the `beforeSend` callback
-    event = $.Event 'ajaxBeforeSend'
-    $(element).trigger event, [xhr, settings]
-    event.result
+      # Provide a global version of the `beforeSend` callback
+      event = $.Event 'ajaxBeforeSend'
+      $(element).trigger event, [xhr, settings]
+      event.result
