@@ -15,6 +15,9 @@ $(document).bind 'ajaxBeforeSend', (event, xhr, settings) ->
   # with our token.
   return if settings.crossDomain
 
+  # Skip for GET requests
+  return if settings.type is 'GET'
+
   # Get token from meta element on the page.
   #
   # On Rails 3, `<%= csrf_meta_tags %>` will spit this out.
@@ -29,6 +32,9 @@ $(document).delegate 'form', 'submit', (event) ->
 
   # Don't handle remote requests. They'll have a header set instead.
   return if form.is 'form[data-remote]'
+
+  # Skip for GET requests
+  return if form.prop('method').toUpperCase() is 'GET'
 
   # Get param token from meta elements on the page.
   #
