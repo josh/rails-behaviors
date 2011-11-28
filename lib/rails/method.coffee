@@ -18,6 +18,11 @@ $(document).delegate 'a[data-method]', 'click', (event) ->
   # Don't handle remote requests
   return if element.is 'a[data-remote]'
 
+  method = element.attr('data-method').toLowerCase()
+
+  # Skip GET requests
+  return if method is 'get'
+
   # Create a dummy form
   form = document.createElement 'form'
   form.method = 'POST'
@@ -25,11 +30,12 @@ $(document).delegate 'a[data-method]', 'click', (event) ->
   form.style.display = 'none'
 
   # Set `_method` to simulate other methods like PUT and DELETE.
-  input = document.createElement 'input'
-  input.setAttribute 'type', 'hidden'
-  input.setAttribute 'name', '_method'
-  input.setAttribute 'value', element.attr 'data-method'
-  form.appendChild input
+  if method isnt 'post'
+    input = document.createElement 'input'
+    input.setAttribute 'type', 'hidden'
+    input.setAttribute 'name', '_method'
+    input.setAttribute 'value', method
+    form.appendChild input
 
   # Add it to the document and fire it off
   document.body.appendChild form

@@ -6,21 +6,21 @@ $ ->
   module "Method"
     setup: ->
       window.formSubmitted = ->
+      window.linkClicked = ->
 
     teardown: ->
       $(document).unbind '.test'
       $('#qunit-fixture').html ""
 
   asyncTest "link is submitted with GET method", ->
-    link = $("<a data-method=get href='/echo?iframe=1&callback=formSubmitted'>")
+    window.clickLink = ->
+      start()
+      return
+
+    link = $("<a data-method=get href='javascript:clickLink();'>")
     fixture.append link
 
     link.trigger 'click'
-
-    window.formSubmitted = (data) ->
-      equal 'GET', data.REQUEST_METHOD
-      equal '/echo', data.REQUEST_PATH
-      start()
 
   asyncTest "link is submitted with POST method", ->
     link = $("<a data-method=post href='/echo?iframe=1&callback=formSubmitted'>")
