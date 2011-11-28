@@ -34,7 +34,7 @@ $(document).delegate 'form', 'submit', (event) ->
   return if form.is 'form[data-remote]'
 
   # Skip for GET requests
-  return if form.prop('method').toUpperCase() is 'GET'
+  return if form.attr('method').toUpperCase() is 'GET'
 
   # Get param token from meta elements on the page.
   #
