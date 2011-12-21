@@ -36,6 +36,10 @@ $(document).delegate 'form', 'submit', (event) ->
   # Skip for GET requests
   return if form.attr('method').toUpperCase() is 'GET'
 
+  # Skip for cross domain requests. Other sites can't do much
+  # with our token.
+  return unless isSameOrigin form.attr 'action'
+
   # Get param token from meta elements on the page.
   #
   # On Rails 3, `<%= csrf_meta_tags %>` will spit these out.
@@ -52,3 +56,9 @@ $(document).delegate 'form', 'submit', (event) ->
       form.prepend input
 
   return
+
+# Check if url is within the same origin policy.
+isSameOrigin = (url) ->
+  a = document.createElement 'a'
+  a.href = url
+  location.protocol is a.protocol and location.host is a.host
