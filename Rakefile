@@ -76,14 +76,6 @@ end
 task :default => :test
 
 task :test do
-  # HACK: jasmine-headless-webkit doesn't let us access its compiled specrunner directly
-  if jasmine_gem = Gem::Specification.find_by_name('jasmine-headless-webkit')
-    headless_root = jasmine_gem.full_gem_path
-    runner = File.join(headless_root, 'ext/jasmine-webkit-specrunner/jasmine-webkit-specrunner')
-  else
-    abort "Can't find 'jasmine-headless-webkit' gem"
-  end
-
   Dir.chdir File.dirname(__FILE__)
 
   pid = fork do
@@ -94,7 +86,7 @@ task :test do
 
   failed = false
   for backend in %w[jquery zepto]
-    failed = true unless system runner, '-c', "http://localhost:3000/#{backend}"
+    failed = true unless system 'phantomjs', './vendor/run-qunit.js', "http://localhost:3000/#{backend}"
   end
 
   Process.kill 'SIGINT', pid
