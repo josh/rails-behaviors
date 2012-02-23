@@ -40,3 +40,18 @@ $ ->
       start()
 
     $(form).find('button[name=submit][value=cancel]').trigger 'click'
+
+  asyncTest "form submit button value is serialized for data-remote-submit", ->
+    form = $("<form data-remote-submit action='/echo?callback=formSubmitted'><button type=submit name=submit value=comment>Comment</button><button type=submit name=submit value=cancel>Cancel</button></form>")
+    fixture.append form
+
+    form.bind 'submit', ->
+      equal $(this).serialize(), "submit=comment"
+      start()
+      false
+
+    window.formSubmitted = (data) ->
+      equal data.params['submit'], "comment"
+      start()
+
+    $(form).find('button[name=submit][value=comment]').trigger 'click'

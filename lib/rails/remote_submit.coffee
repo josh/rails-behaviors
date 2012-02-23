@@ -16,13 +16,16 @@
 # We can work around this by inserting a dummy input on 'click' so
 # jQuery can send it along to the server.
 #
-# This workaround only needs to happen on AJAX forms, so
-# `data-remote=true` must be set on the form to enable it.
+# This workaround only needs to happen on AJAX forms, so `data-remote`
+# or `data-remote-submit` must be set on the form to enable it.
 
 submitSelectors = """
   form[data-remote] input[type=submit],
   form[data-remote] button[type=submit],
-  form[data-remote] button:not([type])
+  form[data-remote] button:not([type]),
+  form[data-remote-submit] input[type=submit],
+  form[data-remote-submit] button[type=submit],
+  form[data-remote-submit] button:not([type])
 """
 
 # Listen for all submit buttons clicks that bubble up to the doucment.
