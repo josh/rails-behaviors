@@ -30,4 +30,4 @@ if $.ajaxSetup
       # Provide a global version of the `beforeSend` callback
       event = $.Event 'ajaxBeforeSend'
       $(element).trigger event, [xhr, settings]
-      event.result
+      if event.isDefaultPrevented() then false else event.result
