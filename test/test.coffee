@@ -1,5 +1,4 @@
 #= require qunit
-#= require rails
 #= require_directory ./unit
 
 window.setupFrame = (env, url) ->
