@@ -1,157 +1,139 @@
 $ ->
   fixture = $('#qunit-fixture')
 
-  window.formSubmitted = ->
-
   module "Remote"
     setup: ->
-      window.formSubmitted = ->
+      setupFrame this, "/frame"
 
-    teardown: ->
-      $(document).unbind '.test'
-      $('#qunit-fixture').html ""
+  asyncTest "link is submitted via AJAX with GET method", 2, ->
+    link = @$("<a data-remote href='/echo?callback=formSubmitted'>").appendTo('body')
 
-  asyncTest "link is submitted via AJAX with GET method", ->
-    link = $("<a data-remote href='/echo?callback=formSubmitted'>")
-    fixture.append link
-
-    window.formSubmitted = (data) ->
+    @window.formSubmitted = (data) ->
       equal 'GET', data.REQUEST_METHOD
       equal '/echo', data.REQUEST_PATH
       start()
 
-    link.trigger 'click'
+    click link[0]
 
-  asyncTest "link is submitted via AJAX with POST method", ->
-    link = $("<a data-remote data-method=post href='/echo?callback=formSubmitted'>")
-    fixture.append link
+  asyncTest "link is submitted via AJAX with POST method", 2, ->
+    link = @$("<a data-remote data-method=post href='/echo?callback=formSubmitted'>").appendTo('body')
 
-    window.formSubmitted = (data) ->
+    @window.formSubmitted = (data) ->
       equal 'POST', data.REQUEST_METHOD
       equal '/echo', data.REQUEST_PATH
       start()
 
-    link.trigger 'click'
+    click link[0]
 
-  asyncTest "link is submitted via AJAX with PUT method", ->
-    link = $("<a data-remote data-method=put href='/echo?callback=formSubmitted'>")
-    fixture.append link
+  asyncTest "link is submitted via AJAX with PUT method", 2, ->
+    link = @$("<a data-remote data-method=put href='/echo?callback=formSubmitted'>").appendTo('body')
 
-    window.formSubmitted = (data) ->
+    @window.formSubmitted = (data) ->
       equal 'PUT', data.REQUEST_METHOD
       equal '/echo', data.REQUEST_PATH
       start()
 
-    link.trigger 'click'
+    click link[0]
 
-  asyncTest "link is submitted via AJAX with DELETE method", ->
-    link = $("<a data-remote data-method=delete href='/echo?callback=formSubmitted'>")
-    fixture.append link
+  asyncTest "link is submitted via AJAX with DELETE method", 2, ->
+    link = @$("<a data-remote data-method=delete href='/echo?callback=formSubmitted'>").appendTo('body')
 
-    window.formSubmitted = (data) ->
+    @window.formSubmitted = (data) ->
       equal 'DELETE', data.REQUEST_METHOD
       equal '/echo', data.REQUEST_PATH
       start()
 
-    link.trigger 'click'
+    click link[0]
 
-  asyncTest "link is submitted via AJAX that accepts JSON", ->
-    link = $("<a data-remote href='/echo' data-type=json>")
-    fixture.append link
+  asyncTest "link is submitted via AJAX that accepts JSON", 2, ->
+    link = @$("<a data-remote href='/echo' data-type=json>").appendTo('body')
 
-    $(document).delegate 'a', 'ajaxSuccess.test', (event, xhr, settings, data) ->
+    @$(@document).delegate 'a', 'ajaxSuccess.test', (event, xhr, settings, data) ->
       equal 'GET', data.REQUEST_METHOD
       equal '/echo', data.REQUEST_PATH
       start()
 
-    link.trigger 'click'
+    click link[0]
 
-  asyncTest "link is prevented from being submitted", ->
-    link = $("<a data-remote href='/echo'>")
-    fixture.append link
+  asyncTest "link is prevented from being submitted", 1, ->
+    link = @$("<a data-remote href='/echo'>").appendTo('body')
 
-    $(document).delegate 'a', 'ajaxBeforeSend.test', ->
+    @$(@document).delegate 'a', 'ajaxBeforeSend.test', ->
       ok true
       false
 
-    $(document).delegate 'a', 'ajaxSuccess.test', ->
+    @$(@document).delegate 'a', 'ajaxSuccess.test', ->
       ok false
 
-    link.trigger 'click'
+    click link[0]
 
     setTimeout (-> start()), 50
 
 
-  asyncTest "form is submitted via AJAX with GET method", ->
-    form = $("<form data-remote action='/echo?callback=formSubmitted'><input name=foo value=bar></form>")
-    fixture.append form
+  asyncTest "form is submitted via AJAX with GET method", 3, ->
+    form = @$("<form data-remote action='/echo?callback=formSubmitted'><input name=foo value=bar></form>").appendTo('body')
 
-    window.formSubmitted = (data) ->
+    @window.formSubmitted = (data) ->
       equal 'GET', data.REQUEST_METHOD
       equal '/echo', data.REQUEST_PATH
       equal 'bar', data.params['foo']
       start()
 
-    $(form).submit()
+    form.submit()
 
-  asyncTest "form is submitted via AJAX with POST method", ->
-    form = $("<form data-remote method=post action='/echo?callback=formSubmitted'><input name=foo value=bar></form>")
-    fixture.append form
+  asyncTest "form is submitted via AJAX with POST method", 3, ->
+    form = @$("<form data-remote method=post action='/echo?callback=formSubmitted'><input name=foo value=bar></form>").appendTo('body')
 
-    window.formSubmitted = (data) ->
+    @window.formSubmitted = (data) ->
       equal 'POST', data.REQUEST_METHOD
       equal '/echo', data.REQUEST_PATH
       equal 'bar', data.params['foo']
       start()
 
-    $(form).submit()
+    form.submit()
 
-  asyncTest "form is submitted via AJAX with PUT method", ->
-    form = $("<form data-remote method=put action='/echo?callback=formSubmitted'><input name=foo value=bar></form>")
-    fixture.append form
+  asyncTest "form is submitted via AJAX with PUT method", 3, ->
+    form = @$("<form data-remote method=put action='/echo?callback=formSubmitted'><input name=foo value=bar></form>").appendTo('body')
 
-    window.formSubmitted = (data) ->
+    @window.formSubmitted = (data) ->
       equal 'PUT', data.REQUEST_METHOD
       equal '/echo', data.REQUEST_PATH
       equal 'bar', data.params['foo']
       start()
 
-    $(form).submit()
+    form.submit()
 
-  asyncTest "form is submitted via AJAX with DELETE method", ->
-    form = $("<form data-remote method=delete action='/echo?callback=formSubmitted'></form>")
-    fixture.append form
+  asyncTest "form is submitted via AJAX with DELETE method", 2, ->
+    form = @$("<form data-remote method=delete action='/echo?callback=formSubmitted'></form>").appendTo('body')
 
-    window.formSubmitted = (data) ->
+    @window.formSubmitted = (data) ->
       equal 'DELETE', data.REQUEST_METHOD
       equal '/echo', data.REQUEST_PATH
       start()
 
-    $(form).submit()
+    form.submit()
 
-  asyncTest "form is submitted via AJAX that accepts JSON", ->
-    form = $("<form data-remote data-type=json action='/echo'><input name=foo value=bar></form>")
-    fixture.append form
+  asyncTest "form is submitted via AJAX that accepts JSON", 3, ->
+    form = @$("<form data-remote data-type=json action='/echo'><input name=foo value=bar></form>").appendTo('body')
 
-    $(document).delegate 'form', 'ajaxSuccess.test', (event, xhr, settings, data) ->
+    @$(@document).delegate 'form', 'ajaxSuccess.test', (event, xhr, settings, data) ->
       equal 'GET', data.REQUEST_METHOD
       equal '/echo', data.REQUEST_PATH
       equal 'bar', data.params['foo']
       start()
 
-    $(form).submit()
+    form.submit()
 
-  asyncTest "form is prevented from being submitted", ->
-    form = $("<form data-remote data-type=json action='/echo'><input name=foo value=bar></form>")
-    fixture.append form
+  asyncTest "form is prevented from being submitted", 1, ->
+    form = @$("<form data-remote data-type=json action='/echo'><input name=foo value=bar></form>").appendTo('body')
 
-    $(document).delegate 'form', 'ajaxBeforeSend.test', ->
+    @$(@document).delegate 'form', 'ajaxBeforeSend.test', ->
       ok true
       false
 
-    $(document).delegate 'form', 'ajaxSuccess.test', ->
+    @$(@document).delegate 'form', 'ajaxSuccess.test', ->
       ok false
 
-    $(form).submit()
+    form.submit()
 
     setTimeout (-> start()), 50

@@ -18,6 +18,16 @@ map "/js" do
   run Assets
 end
 
+map "/frame" do
+  run lambda { |env|
+    html = <<-HTML
+      <script type="text/javascript" src="/js/jquery.js"></script>
+      <script type="text/javascript" src="/js/rails.js"></script>
+    HTML
+    [200, {'Content-Type' => 'text/html'}, [html]]
+  }
+end
+
 map "/echo" do
   use Rack::MethodOverride
 

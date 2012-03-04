@@ -1,56 +1,47 @@
-$ ->
-  fixture = $('#qunit-fixture')
+module "Method"
+  setup: ->
+    setupFrame this, "/frame"
+    window.formSubmitted = ->
 
-  window.formSubmitted = ->
+  teardown: ->
+    delete window.formSubmitted
 
-  module "Method"
-    setup: ->
-      window.formSubmitted = ->
-      window.linkClicked = ->
+asyncTest "link is submitted with GET method", 1, ->
+  @window.clickLink = ->
+    ok true
+    start()
+    return
 
-    teardown: ->
-      $(document).unbind '.test'
-      $('#qunit-fixture').html ""
+  link = @$("<a data-method=get href='javascript:clickLink();'>").appendTo('body')
 
-  asyncTest "link is submitted with GET method", ->
-    window.clickLink = ->
-      start()
-      return
+  click link[0]
 
-    link = $("<a data-method=get href='javascript:clickLink();'>")
-    fixture.append link
+asyncTest "link is submitted with POST method", 2, ->
+  link = @$("<a data-method=post href='/echo?iframe=1&callback=formSubmitted'>").appendTo('body')
 
-    link.trigger 'click'
+  window.formSubmitted = (data) ->
+    equal 'POST', data.REQUEST_METHOD
+    equal '/echo', data.REQUEST_PATH
+    start()
 
-  asyncTest "link is submitted with POST method", ->
-    link = $("<a data-method=post href='/echo?iframe=1&callback=formSubmitted'>")
-    fixture.append link
+  click link[0]
 
-    link.trigger 'click'
+asyncTest "link is submitted with PUT method", 2, ->
+  link = @$("<a data-method=put href='/echo?iframe=1&callback=formSubmitted'>").appendTo('body')
 
-    window.formSubmitted = (data) ->
-      equal 'POST', data.REQUEST_METHOD
-      equal '/echo', data.REQUEST_PATH
-      start()
+  window.formSubmitted = (data) ->
+    equal 'PUT', data.REQUEST_METHOD
+    equal '/echo', data.REQUEST_PATH
+    start()
 
-  asyncTest "link is submitted with PUT method", ->
-    link = $("<a data-method=put href='/echo?iframe=1&callback=formSubmitted'>")
-    fixture.append link
+  click link[0]
 
-    link.trigger 'click'
+asyncTest "link is submitted with DELETE method", 2, ->
+  link = @$("<a data-method=delete href='/echo?iframe=1&callback=formSubmitted'>").appendTo('body')
 
-    window.formSubmitted = (data) ->
-      equal 'PUT', data.REQUEST_METHOD
-      equal '/echo', data.REQUEST_PATH
-      start()
+  window.formSubmitted = (data) ->
+    equal 'DELETE', data.REQUEST_METHOD
+    equal '/echo', data.REQUEST_PATH
+    start()
 
-  asyncTest "link is submitted with DELETE method", ->
-    link = $("<a data-method=delete href='/echo?iframe=1&callback=formSubmitted'>")
-    fixture.append link
-
-    link.trigger 'click'
-
-    window.formSubmitted = (data) ->
-      equal 'DELETE', data.REQUEST_METHOD
-      equal '/echo', data.REQUEST_PATH
-      start()
+  click link[0]

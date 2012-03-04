@@ -1,71 +1,55 @@
-$ ->
-  fixture = $('#qunit-fixture')
+module "Confirm"
+  setup: ->
+    setupFrame this, "/frame"
 
-  linkClicked = null
-  window.clickLink = ->
-    linkClicked = true
-    return
+test "run default action if confirm returns true", 2, ->
+  @window.confirm = ->
+    ok true
+    true
 
-  module "Confirm"
-    setup: ->
-      linkClicked = null
+  @window.clickLink = ->
+    ok true
 
-    teardown: ->
-      delete window.confirm
+  link = @$("<a data-confirm='Are you sure?' href='javascript:clickLink();'>")[0]
+  @document.body.appendChild link
 
-      $(document).unbind '.test'
-      $('#qunit-fixture').html ""
+  click link
 
-  asyncTest "run default action if confirm returns true", ->
-    window.confirm = -> true
+test "doesn't run default action if confirm returns false", 1, ->
+  @window.confirm = ->
+    ok true
+    false
 
-    link = $("<a data-confirm='Are you sure?' href='javascript:clickLink();'>")
-    fixture.append link
+  @window.clickLink = ->
+    ok false
 
-    link.trigger 'click'
+  link = $("<a data-confirm='Are you sure?' href='javascript:clickLink();'>")[0]
+  @document.body.appendChild link
 
-    setTimeout ->
-      ok linkClicked
+  click link
 
-      start()
-    , 50
+test "runs other handlers action if confirm returns true", 2, ->
+  @window.confirm = ->
+    ok true
+    true
 
-  asyncTest "doesn't run default action if confirm returns false", ->
-    window.confirm = -> false
+  link = $("<a data-confirm='Are you sure?' href='javascript:void(0);'>")[0]
+  @document.body.appendChild link
 
-    link = $("<a data-confirm='Are you sure?' href='javascript:clickLink();'>")
-    fixture.append link
+  @$(@document).delegate 'a', 'click.test', ->
+    ok true
 
-    link.trigger 'click'
+  click link
 
-    setTimeout ->
-      ok !linkClicked
+test "doesn't run other handlers action if confirm returns false", 1, ->
+  @window.confirm = ->
+    ok true
+    false
 
-      start()
-    , 50
+  link = $("<a data-confirm='Are you sure?' href='javascript:void(0);'>")[0]
+  @document.body.appendChild link
 
-  test "runs other handlers action if confirm returns true", ->
-    window.confirm = -> true
+  @$(@document).delegate 'a', 'click.test', ->
+    ok false
 
-    link = $("<a data-confirm='Are you sure?' href='javascript:void(0);'>")
-    fixture.append link
-
-    handlerCalled = false
-    $(document).delegate 'a', 'click.test', ->
-      handlerCalled = true
-
-    link.trigger 'click'
-    ok handlerCalled
-
-  test "doesn't run other handlers action if confirm returns false", ->
-    window.confirm = -> false
-
-    link = $("<a data-confirm='Are you sure?' href='javascript:void(0);'>")
-    fixture.append link
-
-    handlerCalled = false
-    $(document).delegate 'a', 'click.test', ->
-      handlerCalled = true
-
-    link.trigger 'click'
-    ok !handlerCalled
+  click link
