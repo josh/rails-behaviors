@@ -1,6 +1,6 @@
 #= require qunit
 #= require rails
-#= require_directory .
+#= require_directory ./unit
 
 $(document).delegate 'a[href]', 'click', (event) ->
   return if event.defaultPrevented || event.isDefaultPrevented?()
