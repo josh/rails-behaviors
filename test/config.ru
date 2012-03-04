@@ -18,6 +18,44 @@ map "/js" do
   run Assets
 end
 
+map "/jquery-1.7.1.html" do
+  run lambda { |env|
+    html = <<-HTML
+      <script type="text/javascript" src="/js/jquery-1.7.1.js"></script>
+      <script type="text/javascript" src="/js/rails.js"></script>
+    HTML
+    [200, {'Content-Type' => 'text/html'}, [html]]
+  }
+end
+
+map "/jquery-1.6.4.html" do
+  run lambda { |env|
+    html = <<-HTML
+      <script type="text/javascript" src="/js/jquery-1.6.4.js"></script>
+      <script type="text/javascript" src="/js/rails.js"></script>
+    HTML
+    [200, {'Content-Type' => 'text/html'}, [html]]
+  }
+end
+
+map "/zepto-0.8.html" do
+  run lambda { |env|
+    html = <<-HTML
+      <script type="text/javascript" src="/js/zepto-0.8.js"></script>
+      <script type="text/javascript" src="/js/rails.js"></script>
+      <script type="text/javascript">
+        $(document).bind('ajaxSuccess', function(event, xhr) {
+          if (xhr.getResponseHeader('Content-Type') === 'application/javascript') {
+            eval(xhr.responseText);
+          }
+        });
+      </script>
+    HTML
+    [200, {'Content-Type' => 'text/html'}, [html]]
+  }
+end
+
+
 map "/echo" do
   use Rack::MethodOverride
 
@@ -41,6 +79,4 @@ map "/echo" do
 end
 
 
-map("/jquery") { run Rack::File.new("#{Root}/test/jquery.html") }
-map("/zepto")  { run Rack::File.new("#{Root}/test/zepto.html") }
-map("/")       { run Rack::File.new("#{Root}/test/jquery.html") }
+map("/") { run Rack::File.new("#{Root}/test/index.html") }

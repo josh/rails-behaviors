@@ -1,22 +1,32 @@
 #= require qunit
-#= require rails
-#= require_directory .
+#= require_self
+#= require_directory ./unit
 
-$(document).delegate 'a[href]', 'click', (event) ->
-  return if event.defaultPrevented || event.isDefaultPrevented?()
-  window.location = event.target.href
+window.frameworks = ["jquery-1.7.1", "jquery-1.6.4", "zepto-0.8"]
+
+window.each = (array, block) ->
+  for item in array
+    block item
   return
 
-# Target form submissions to iframe
-guid = 1
-$(document).bind 'submit', (event) ->
-  return if event.defaultPrevented || event.isDefaultPrevented?()
-  name   = "frame#{guid++}"
-  iframe = $ "<iframe id=#{name} name=#{name}>"
-  $(event.target).attr 'target', name
-  $('#qunit-fixture').append iframe
+window.setupFrame = (env, url) ->
+  stop()
 
-if Zepto?
-  $(document).bind 'ajaxSuccess', (event, xhr) ->
-    if xhr.getResponseHeader('Content-Type') is 'application/javascript'
-      eval xhr.responseText
+  env.iframe = document.createElement 'iframe'
+  env.iframe.src = url
+  env.iframe.onload = ->
+    env.iframe.onload = ->
+
+    env.window   = env.win = env.iframe.contentWindow
+    env.document = env.doc = env.iframe.contentDocument
+    env.$        = env.iframe.contentWindow.$
+
+    start()
+
+  fixture = document.getElementById 'qunit-fixture'
+  fixture.appendChild env.iframe
+
+window.click = (element) ->
+  event = document.createEvent 'MouseEvents'
+  event.initEvent 'click', true, true
+  element.dispatchEvent event
