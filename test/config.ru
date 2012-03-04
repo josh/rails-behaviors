@@ -18,6 +18,33 @@ map "/js" do
   run Assets
 end
 
+map "/jquery.html" do
+  run lambda { |env|
+    html = <<-HTML
+      <script type="text/javascript" src="/js/jquery.js"></script>
+      <script type="text/javascript" src="/js/rails.js"></script>
+    HTML
+    [200, {'Content-Type' => 'text/html'}, [html]]
+  }
+end
+
+map "/zepto.html" do
+  run lambda { |env|
+    html = <<-HTML
+      <script type="text/javascript" src="/js/zepto.js"></script>
+      <script type="text/javascript" src="/js/rails.js"></script>
+      <script type="text/javascript">
+        $(document).bind('ajaxSuccess', function(event, xhr) {
+          if (xhr.getResponseHeader('Content-Type') === 'application/javascript') {
+            eval(xhr.responseText);
+          }
+        });
+      </script>
+    HTML
+    [200, {'Content-Type' => 'text/html'}, [html]]
+  }
+end
+
 map "/frame" do
   run lambda { |env|
     html = <<-HTML
