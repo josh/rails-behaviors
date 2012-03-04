@@ -27,17 +27,18 @@ asyncTest "doesn't add X-CSRF-Token to AJAX requests if no token header is prese
       ok !env['HTTP_X_CSRF_TOKEN']
       start()
 
-if $.support?.cors
-  asyncTest "doesn't add X-CSRF-Token to cross domain JSONP requests", ->
-    token = "2705a83a5a0659cce34583972637eda5"
-    @$('<meta>', name: 'csrf-token', content: token).appendTo('body')
+asyncTest "doesn't add X-CSRF-Token to cross domain JSONP requests", ->
+  return start() unless @$.support?.cors
 
-    @$.ajax
-      url: "/echo"
-      crossDomain: true
-      success: (env) ->
-        ok !env['HTTP_X_CSRF_TOKEN']
-        start()
+  token = "2705a83a5a0659cce34583972637eda5"
+  @$('<meta>', name: 'csrf-token', content: token).appendTo('body')
+
+  @$.ajax
+    url: "/echo"
+    crossDomain: true
+    success: (env) ->
+      ok !env['HTTP_X_CSRF_TOKEN']
+      start()
 
 asyncTest "doesn't add X-CSRF-Token to GET AJAX requests", ->
   token = "2705a83a5a0659cce34583972637eda5"

@@ -51,6 +51,4 @@ map "/echo" do
 end
 
 
-map("/jquery") { run Rack::File.new("#{Root}/test/jquery.html") }
-map("/zepto")  { run Rack::File.new("#{Root}/test/zepto.html") }
-map("/")       { run Rack::File.new("#{Root}/test/jquery.html") }
+map("/") { run Rack::File.new("#{Root}/test/index.html") }
