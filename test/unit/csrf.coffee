@@ -1,6 +1,10 @@
 module "CSRF"
   setup: ->
     setupFrame this, "/frame"
+    window.formSubmitted = ->
+
+  teardown: ->
+    delete window.formSubmitted
 
 asyncTest "adds X-CSRF-Token to AJAX requests if token header is present", ->
   token = "2705a83a5a0659cce34583972637eda5"
