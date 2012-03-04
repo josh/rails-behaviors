@@ -84,13 +84,10 @@ task :test do
   end
   sleep 2
 
-  failed = false
-  for backend in %w[jquery zepto]
-    failed = true unless system 'phantomjs', './vendor/run-qunit.js', "http://localhost:3000/#{backend}"
-  end
+  status = system 'phantomjs', './vendor/run-qunit.coffee', "http://localhost:3000/"
 
   Process.kill 'SIGINT', pid
   Process.wait pid
 
-  abort "Failed." if failed
+  exit status
 end

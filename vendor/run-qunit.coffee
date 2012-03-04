@@ -4,7 +4,17 @@ print = (s) -> fs.write "/dev/stderr", s, 'w'
 page = new WebPage()
 page.onConsoleMessage = (msg) -> console.error msg
 
+timeoutId = null
+deferTimeout = ->
+  clearTimeout timeoutId if timeoutId
+  timeoutId = setTimeout ->
+    console.error "Timeout"
+    phantom.exit 1
+  , 3000
+
 page.open phantom.args[0], ->
+  deferTimeout()
+
   setInterval ->
     tests = page.evaluate ->
       tests = document.getElementById('qunit-tests').children
@@ -14,9 +24,9 @@ page.open phantom.args[0], ->
           '.'
         else if test.className is 'fail'
           'F'
-        else
-          ''
-    for test in tests
+
+    for test in tests when test
+      deferTimeout()
       print test
 
     result = page.evaluate ->
@@ -36,8 +46,3 @@ page.open phantom.args[0], ->
 
     phantom.exit result if result?
   , 100
-
-  setTimeout ->
-    console.error "Timeout"
-    phantom.exit 1
-  , 10000
