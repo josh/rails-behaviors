@@ -253,8 +253,8 @@ var Zepto = (function() {
     eq: function(idx){
       return idx === -1 ? this.slice(idx) : this.slice(idx, + idx + 1);
     },
-    first: function(){ return $(this[0]) },
-    last: function(){ return $(this[this.length - 1]) },
+    first: function(){ var el = this[0]; return el && !isO(el) ? el : $(el) },
+    last: function(){ var el = this[this.length - 1]; return el && !isO(el) ? el : $(el) },
     find: function(selector){
       var result;
       if (this.length == 1) result = $$(this[0], selector);
@@ -373,8 +373,8 @@ var Zepto = (function() {
       if(this.length==0) return null;
       var obj = this[0].getBoundingClientRect();
       return {
-        left: obj.left + document.body.scrollLeft,
-        top: obj.top + document.body.scrollTop,
+        left: obj.left + window.pageXOffset,
+        top: obj.top + window.pageYOffset,
         width: obj.width,
         height: obj.height
       };
@@ -778,15 +778,22 @@ window.Zepto = Zepto;
   });
 
   $.fx = {
-    off: false,
+    off: (eventPrefix === undefined && testEl.style.transitionProperty === undefined),
     cssPrefix: prefix,
     transitionEnd: normalizeEvent('TransitionEnd'),
     animationEnd: normalizeEvent('AnimationEnd')
   };
 
+  $.fn.animate = function(properties, duration, ease, callback){
+    if ($.isObject(duration))
+      ease = duration.easing, callback = duration.complete, duration = duration.duration;
+    if (duration) duration = duration / 1000;
+    return this.anim(properties, duration, ease, callback);
+  };
+
   $.fn.anim = function(properties, duration, ease, callback){
     var transforms, cssProperties = {}, key, that = this, wrappedCallback, endEvent = $.fx.transitionEnd;
-    if (duration === undefined) duration = 0.5;
+    if (duration === undefined) duration = 0.4;
     if ($.fx.off) duration = 0;
 
     if (typeof properties == 'string') {
@@ -977,6 +984,8 @@ window.Zepto = Zepto;
       html:   'text/html',
       text:   'text/plain'
     },
+    // Whether the request is to another domain
+    crossDomain: false,
     // Default timeout
     timeout: 0
   };
@@ -1029,11 +1038,13 @@ window.Zepto = Zepto;
   //     });
   //
   $.ajax = function(options){
-    options = options || {};
-    var settings = $.extend({}, options);
-    for (key in $.ajaxSettings) if (!settings[key]) settings[key] = $.ajaxSettings[key];
+    var settings = $.extend({}, options || {});
+    for (key in $.ajaxSettings) if (settings[key] === undefined) settings[key] = $.ajaxSettings[key];
 
     ajaxStart(settings);
+
+    if (!settings.crossDomain) settings.crossDomain = /^([\w-]+:)?\/\/([^\/]+)/.test(settings.url) &&
+      RegExp.$2 != window.location.host;
 
     if (/=\?/.test(settings.url)) return $.ajaxJSONP(settings);
 
@@ -1052,16 +1063,19 @@ window.Zepto = Zepto;
     }
 
     var mime = settings.accepts[settings.dataType],
+        baseHeaders = { },
+        protocol = /^([\w-]+:)\/\//.test(settings.url) ? RegExp.$1 : window.location.protocol,
         xhr = $.ajaxSettings.xhr(), abortTimeout;
 
-    settings.headers = $.extend({'X-Requested-With': 'XMLHttpRequest'}, settings.headers || {});
-    if (mime) settings.headers['Accept'] = mime;
+    if (!settings.crossDomain) baseHeaders['X-Requested-With'] = 'XMLHttpRequest';
+    if (mime) baseHeaders['Accept'] = mime;
+    settings.headers = $.extend(baseHeaders, settings.headers || {});
 
     xhr.onreadystatechange = function(){
       if (xhr.readyState == 4) {
         clearTimeout(abortTimeout);
         var result, error = false;
-        if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 0) {
+        if ((xhr.status >= 200 && xhr.status < 300) || (xhr.status == 0 && protocol == 'file:')) {
           if (mime == 'application/json' && !(/^\s*$/.test(xhr.responseText))) {
             try { result = JSON.parse(xhr.responseText); }
             catch (e) { error = e; }
