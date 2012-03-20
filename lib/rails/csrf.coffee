@@ -61,4 +61,5 @@ $(document).delegate 'form', 'submit', (event) ->
 isSameOrigin = (url) ->
   a = document.createElement 'a'
   a.href = url
-  location.protocol is a.protocol and location.host is a.host
+  origin = a.href.split('/', 3).join "/"
+  location.href.indexOf(origin) is 0
