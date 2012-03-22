@@ -6,7 +6,7 @@ require 'redcarpet'
 
 
 def markdown(text)
-  options  = {:autolink => true, :tables => true, :fenced_code_blocks => true}
+  options  = {:autolink => true, :fenced_code_blocks => true}
   markdown = Redcarpet::Markdown.new(Render, options)
   markdown.render(text)
 end
@@ -19,7 +19,7 @@ class Render < Redcarpet::Render::HTML
     "\n<h#{header_level}#{id}>#{text}</h#{header_level}>\n"
   end
 
-  def definition_table(code)
+  def definition_table(code, header = false)
     definitions = []
 
     code.lines.each do |line|
@@ -33,13 +33,24 @@ class Render < Redcarpet::Render::HTML
     end
 
     html = []
+    html << "<table>"
+
+    if header
+      term, definition = definitions.shift
+      html << "  <thead>"
+      html << "    <th><p>#{term}</p></th>"
+      html << "    <th><p>#{definition}</p></th>"
+      html << "  </thead>"
+    end
+
+    html << "  <tbody>"
 
     definitions.each do |term, definition|
       html << "<tr>"
       html << "<td>#{markdown(term)}</td>"
 
       if definition =~ /^(\S.+)\s+-\s+(.+)$/
-        html << "<td><table>#{definition_table(definition)}</table></td>"
+        html << "<td>#{definition_table(definition)}</td>"
       else
         html << "<td>#{markdown(definition)}</td>"
       end
@@ -47,36 +58,15 @@ class Render < Redcarpet::Render::HTML
       html << "</tr>"
     end
 
+    html << "  </tbody>"
+    html << "</table>"
+
     html.join("\n")
   end
 
   def block_code(code, language)
-    if language == 'markup-table'
-      html = []
-
-      html << "<table>"
-      html << "  <thead>"
-      html << "    <th><p>Attribute</p></th>"
-      html << "    <th><p>Description</p></th>"
-      html << "  </thead>"
-      html << "  <tbody>"
-      html << definition_table(code)
-      html << "  </tbody>"
-      html << "</table>"
-      html.join("\n")
-    elsif language == 'events-table'
-      html = []
-
-      html << "<table>"
-      html << "  <thead>"
-      html << "    <th><p>Property</p></th>"
-      html << "    <th><p>Value</p></th>"
-      html << "  </thead>"
-      html << "  <tbody>"
-      html << definition_table(code)
-      html << "  </tbody>"
-      html << "</table>"
-      html.join("\n")
+    if language == 'definition-table'
+      definition_table(code, true)
     else
       Pygments.highlight(code, :lexer => language)
     end

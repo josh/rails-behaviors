@@ -13,7 +13,9 @@ See more about setup and installation steps at https://github.com/josh/rails-beh
 
 #### `<a>`
 
-``` markup-table
+``` definition-table
+Attribute - Description
+
 `data-remote`
   Enables remote behavior on the element if set to anything.
 
@@ -38,7 +40,9 @@ See more about setup and installation steps at https://github.com/josh/rails-beh
 
 #### `<form>`
 
-``` markup-table
+``` definition-table
+Attribute - Description
+
 `data-remote`
   Enables remote behavior on the element if set to anything.
 
@@ -70,7 +74,9 @@ See jQuery's [AJAX event documentation](http://docs.jquery.com/Ajax_Events) for 
 
 This event, which is triggered before an Ajax request is started, allows you to modify the XMLHttpRequest object (setting additional headers, if need be.)
 
-``` events-table
+``` definition-table
+Property - Value
+
 Synchronicity  - Sync
 Bubbles        - Yes
 Cancelable     - Yes
@@ -85,7 +91,9 @@ Extra arguments
 
 This event is only called if the request was successful (no errors from the server, no errors with the data).
 
-``` events-table
+``` definition-table
+Property - Value
+
 Synchronicity  - Sync
 Bubbles        - Yes
 Cancelable     - No
@@ -100,7 +108,9 @@ Extra arguments
 
 This event is only called if an error occurred with the request (you can never have both an error and a success callback with a request).
 
-``` events-table
+``` definition-table
+Property - Value
+
 Synchronicity  - Sync
 Bubbles        - Yes
 Cancelable     - No
@@ -115,7 +125,9 @@ Extra arguments
 
 This event is called regardless of if the request was successful, or not. You will always receive a complete callback, even for synchronous requests.
 
-``` events-table
+``` definition-table
+Property - Value
+
 Synchronicity  - Sync
 Bubbles        - Yes
 Cancelable     - No
@@ -150,7 +162,9 @@ Allow links to be followed with an alternate method.
 
 `<a>`
 
-``` markup-table
+``` definition-table
+Attribute - Description
+
 `data-method`
   Method for following `href`. Can be `"post"`, `"put"`, or
   `"delete"`. `"get"` is ignored since its the default behavior for
@@ -172,7 +186,9 @@ Prompts native confirm dialog before activating link.
 
 #### `<a>`
 
-``` markup-table
+``` definition-table
+Attribute - Description
+
 `data-confirm` - Message to pass to `confirm()`.
 ```
 
@@ -191,7 +207,9 @@ Disables clicked submit input or button with text.
 
 `<input type=submit>` or `<button type=submit>`
 
-``` markup-table
+``` definition-table
+Attribute - Description
+
 `data-disable-with` - Message to set `<input>` value or `<button>` innerHTML to.
 ```
 
