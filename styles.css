@@ -25,7 +25,6 @@ a:link, a:visited {
   height: 100%;
   padding: 20px 30px;
   background-color: #c52f24;
-/*  background-color: #fefcf1;*/
   font-family: "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, sans-serif;
   font-size: 14px;
   border-right: 1px solid #bbb;
@@ -117,6 +116,10 @@ tr:nth-child(odd) > td,
 tr:nth-child(odd) > td table tr:nth-child(odd) > td,
 tr:nth-child(even) > td table tr:nth-child(even) > td {
   background-color: #fafafa;
+}
+
+td:first-child {
+  white-space: nowrap;
 }
 
 
