@@ -1,8 +1,6 @@
 require 'pygments'
 require 'redcarpet'
 
-require 'rails/behaviors'
-
 module Rails
   module Behaviors
     module Documentation
