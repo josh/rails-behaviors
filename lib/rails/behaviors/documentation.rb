@@ -12,7 +12,8 @@ module Rails
         lines  = extract_text(path).lines.to_a
         header = lines.shift
 
-        lines.unshift "`#= require #{path}`\n"
+        require_path = path.sub("#{Behaviors.path}/", "").sub(".coffee", "")
+        lines.unshift "`#= require #{require_path}`\n"
         lines.unshift "## #{header}"
 
         markdown(lines.join)
@@ -20,7 +21,7 @@ module Rails
 
       def extract_text(path)
         lines = []
-        File.readlines("#{File.join(Rails::Behaviors.path, path)}.coffee").each do |line|
+        File.readlines(path).each do |line|
           break unless line =~ /^#/
           next if line =~ /^#=/
           lines << line.sub(/^# ?/, "")

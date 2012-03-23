@@ -3,8 +3,6 @@ require 'rubygems/specification'
 require 'rake/clean'
 
 require 'rails/behaviors'
-require 'rails/behaviors/documentation'
-
 require 'sprockets'
 require 'coffee-script'
 require 'uglifier'

@@ -11,6 +11,14 @@ module Rails
       PATH
     end
 
+    def self.documentation_for(path)
+      require 'rails/behaviors/documentation'
+      unless File.exist?(path)
+        filename = "#{File.join(Rails::Behaviors.path, path)}.coffee"
+      end
+      Documentation.parse(filename)
+    end
+
     # BS for Rails
     if defined? ::Rails::Railtie
       class Railtie < ::Rails::Railtie
