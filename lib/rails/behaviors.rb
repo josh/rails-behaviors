@@ -5,12 +5,23 @@ module Rails
 
     # Exposes JS load path for Sprockets.
     #
+    # Examples
+    #
     #   Assets.append_path Rails::Behaviors.path
     #
     def self.path
       PATH
     end
 
+    # Internal: Get inline documentation for module.
+    #
+    # path - String require path for module
+    #
+    # Examples
+    #
+    #   Rails::Behaviors.documentation_for("rails/remote")
+    #
+    # Returns HTML string.
     def self.documentation_for(path)
       require 'rails/behaviors/documentation'
       unless File.exist?(path)
