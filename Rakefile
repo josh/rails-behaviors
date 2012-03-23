@@ -98,6 +98,7 @@ end
 
 
 file "docs/index.html" => ["docs/index.html.erb"] do
+  require 'erb'
   template = ERB.new(File.read("docs/index.html.erb"))
   result   = template.result
   File.open("docs/index.html", 'w') { |f| f.write result }
