@@ -94,8 +94,7 @@ task :test do
   exit status
 end
 
-
-file "docs/index.html" => ["docs/index.html.erb"] do
+file "docs/index.html" => ["docs/index.html.erb"] + FileList["lib/**/*.coffee"] do
   require 'erb'
   template = ERB.new(File.read("docs/index.html.erb"))
   result   = template.result
