@@ -44,23 +44,7 @@ The differences are in the JS interface.
 
 ## Reference
 
-### Events
-
-Most of the useful events are already built into jQuery. Only `ajaxBeforeSend` is added as there is no global complement for `beforeSend`.
-
-* `ajaxBeforeSend (event, xhr, settings)`: Called before XHR request is sent. Returning false from a handler will stop the XHR request. Useful for validation.
-* `ajaxSuccess (event, xhr, settings, data)`: Called after successful response.
-* `ajaxError (event, xhr, settings, error)`: Called after non-successful response.
-* `ajaxComplete (event, xhr, settings)`: Always called after response.
-
-See the [jQuery docs](http://docs.jquery.com/Ajax_Events) for more info.
-
-### Behaviors
-
-* `data-confirm`: [Source](https://github.com/josh/rails-behaviors/blob/master/lib/rails/confirm.coffee)
-* `data-disable-with`: [Source](https://github.com/josh/rails-behaviors/blob/master/lib/rails/disable.coffee)
-* `data-method`: [Source](https://github.com/josh/rails-behaviors/blob/master/lib/rails/method.coffee)
-* `data-remote`: [Source](https://github.com/josh/rails-behaviors/blob/master/lib/rails/remote.coffee)
+See [http://josh.github.com/rails-behaviors/](http://josh.github.com/rails-behaviors/) for a markup and event reference.
 
 ## Contributing
 
