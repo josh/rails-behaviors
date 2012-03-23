@@ -1,0 +1,142 @@
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  color: #333;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+  padding: 0;
+  margin: 0;
+}
+
+a:link, a:visited {
+  color: #555;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 150px;
+  height: 100%;
+  padding: 20px 30px;
+  background-color: #c52f24;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  border-right: 1px solid #bbb;
+  box-shadow: 0 0 20px #ccc;
+}
+
+.sidebar ul {
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar li {
+  list-style-type: none;
+  margin: 15px 0;
+}
+
+.sidebar a {
+  color: #ddd;
+  text-decoration: none;
+}
+.sidebar a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.content {
+  position: relative;
+  width: 800px;
+  left: 200px;
+  padding: 20px;
+}
+
+h2 {
+  margin-top: 40px;
+  padding-top: 20px;
+}
+
+h3 {
+  margin-top: 30px;
+  text-transform: uppercase;
+}
+
+
+table {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  border-spacing: 0px;
+}
+
+table table {
+  border: none;
+}
+
+td, th {
+  padding: 0px;
+  line-height: 18px;
+  text-align: left;
+}
+
+tr > th, tr > td {
+  border-left: 1px solid #ddd;
+}
+tr > th:first-child,
+tr > td:first-child {
+  border-left: none;
+}
+
+tbody > tr > td,
+thead + tbody > tr:first-child > td {
+  border-top: 1px solid #ddd;
+}
+tr:first-child > td {
+  border-top: none;
+}
+
+td > p, th > p {
+  margin: 0;
+  padding: 8px;
+}
+
+tr:nth-child(even) > td,
+tr:nth-child(odd) > td table tr:nth-child(even) > td,
+tr:nth-child(even) > td table tr:nth-child(odd) > td {
+  background-color: #fff;
+}
+
+tr:nth-child(odd) > td,
+tr:nth-child(odd) > td table tr:nth-child(odd) > td,
+tr:nth-child(even) > td table tr:nth-child(even) > td {
+  background-color: #fafafa;
+}
+
+td:first-child {
+  white-space: nowrap;
+}
+
+
+.highlight pre {
+  color: #000;
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  font-size: 13px;
+  font-family: "Bitstream Vera Sans Monoa", Courier, monospace;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 4px;
+}
+.highlight .k, .highlight .o, .highlight .nf {
+  color: #666;
+}
+.highlight .s, .highlight .s1, .highlight .s2 {
+  color: #c52f24;
+}

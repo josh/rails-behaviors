@@ -13,7 +13,9 @@ Gem::Specification.new do |s|
   s.add_dependency "sprockets", "~>2.0"
   s.add_dependency "coffee-script", "~>2.2"
   s.add_dependency "coffee-script-source", "~>1.1"
+  s.add_development_dependency "pygments.rb"
   s.add_development_dependency "rake"
+  s.add_development_dependency "redcarpet"
   s.add_development_dependency "uglifier"
 
   s.author = "Joshua Peek"

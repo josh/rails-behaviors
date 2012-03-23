@@ -1,9 +1,11 @@
+# Accept
+#
 #= require ./beforesend
 #
 # Make default Accept header prefer JS.
 #
 # jQuery's default Accept header is just `"*/*"`, which means accept
-# anything back. To make AJAX requests work nicer with Rail's
+# anything back. To make AJAX requests work nicer with Rails'
 # `respond_to` block, this prioritizes JS responds over others.
 #
 # For an example:

@@ -2,6 +2,9 @@ require 'rubygems'
 require 'rubygems/specification'
 require 'rake/clean'
 
+require 'rails/behaviors'
+require 'rails/behaviors/documentation'
+
 require 'sprockets'
 require 'coffee-script'
 require 'uglifier'
@@ -73,6 +76,7 @@ task :dist do
   Assets['rails.js'].write_to('dist/rails.min.js')
 end
 
+
 task :default => :test
 
 task :test do
@@ -91,3 +95,13 @@ task :test do
 
   exit status
 end
+
+
+file "docs/index.html" => ["docs/index.html.erb"] do
+  template = ERB.new(File.read("docs/index.html.erb"))
+  result   = template.result
+  File.open("docs/index.html", 'w') { |f| f.write result }
+end
+CLOBBER.include 'docs/index.html'
+
+task :docs => ['docs/index.html']

@@ -1,4 +1,16 @@
+# Disable
+#
 # Disables clicked buttons with text in `data-disable-with`.
+#
+# ### Markup
+#
+# `<input type=submit>` or `<button type=submit>`
+#
+# ``` definition-table
+# Attribute - Description
+#
+# `data-disable-with` - Message to set `<input>` value or `<button>` innerHTML to.
+# ```
 #
 #     <input type="submit" data-disable-with="Submitting...">
 

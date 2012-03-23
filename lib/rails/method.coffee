@@ -1,16 +1,25 @@
+# Method
+#
 # Allow links to be followed with an alternate method
 # using `data-method`.
-#
-#     <a href="/posts/1" data-method="delete">Delete</a>
 #
 # To fake this, a hidden form element is created on the fly
 # and is submitted.
 #
-# In older versions of Rails, `link_to` would generated a
-# bunch of inline JS to accomplish this.
+# ### Markup
 #
-#     <%= link_to "Delete", "/posts/1", :method => :delete %>
+# `<a>`
 #
+# ``` definition-table
+# Attribute - Description
+#
+# `data-method`
+#   Method for following `href`. Can be `"post"`, `"put"`, or
+#   `"delete"`. `"get"` is ignored since its the default behavior for
+#   links.
+# ```
+#
+#     <a href="/posts/1" data-method="delete">Delete</a>
 
 $(document).delegate 'a[data-method]', 'click', (event) ->
   element = $(this)

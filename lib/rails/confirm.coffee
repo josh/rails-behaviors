@@ -1,4 +1,16 @@
-# Prompt native confirm dialog for `data-confirm` links.
+# Confirm
+#
+# Prompts native confirm dialog before activating link.
+#
+# ### Markup
+#
+# `<a>`
+#
+# ``` definition-table
+# Attribute - Description
+#
+# `data-confirm` - Message to pass to `confirm()`.
+# ```
 #
 #     <a href="/" data-confirm="Are you sure?">Delete</a>
 
