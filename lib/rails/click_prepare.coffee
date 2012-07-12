@@ -34,15 +34,15 @@ if Zepto?
   , true
 
 else
+  lastPreparedTimestamp = null
+
   # Hook into jQuery click event trigger
   $.event.special.click =
     # preDispatch is a new hook added in 1.7.2. Its not documented as
     # a real public API, but we'll abuse it anyway.
     preDispatch: (event) ->
-      # Only trigger prepare handlers if this is the target phase. Add
-      # special case for triggered events which do not correctly set
-      # eventPhase.
-      if event.eventPhase is 2 or (event.isTrigger and !event.currentTarget)
+      # Check if this event has dispatched a prepare event already
+      if event.timeStamp isnt lastPreparedTimestamp
         # Reuse the existing event instead of creating a new copy. Any
         # calls to preventDefault or stopPropagation will take
         # immediate effect.
@@ -50,4 +50,6 @@ else
         $.event.trigger event, [], event.target, false
         # Restore the old event type
         event.type = 'click'
+        # Mark event's timestamp id as prepared
+        lastPreparedTimestamp = event.timeStamp
       return
