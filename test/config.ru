@@ -45,6 +45,16 @@ map "/zepto-0.8.html" do
   }
 end
 
+map "/zepto-1.0rc1.html" do
+  run lambda { |env|
+    html = <<-HTML
+      <script type="text/javascript" src="/js/zepto-1.0rc1.js"></script>
+      <script type="text/javascript" src="/js/rails.js"></script>
+    HTML
+    [200, {'Content-Type' => 'text/html'}, [html]]
+  }
+end
+
 
 map "/echo" do
   use Rack::MethodOverride
