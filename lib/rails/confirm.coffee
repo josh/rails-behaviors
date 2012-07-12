@@ -16,7 +16,7 @@
 #
 #     <a href="/" data-confirm="Are you sure?">Delete</a>
 
-$(document).delegate 'a[data-confirm]', 'click:prepare', (event) ->
+$(document).on 'click:prepare', 'a[data-confirm]', (event) ->
   if message = $(this).attr 'data-confirm'
     # Prompt message with native confirm dialog
     unless confirm message

@@ -13,7 +13,7 @@
 
 # The AJAX prefilter filter will run before all jQuery XHR requests and
 # allows the request to be modified.
-$(document).bind 'ajaxBeforeSend', (event, xhr, settings) ->
+$(document).on 'ajaxBeforeSend', (event, xhr, settings) ->
   # Skip for cross domain requests. Other sites can't do much
   # with our token.
   return if settings.crossDomain
@@ -30,7 +30,7 @@ $(document).bind 'ajaxBeforeSend', (event, xhr, settings) ->
 
 # Listen for form submissions and inject hidden `authenticity_token`
 # input into forms missing them.
-$(document).delegate 'form', 'submit:prepare', ->
+$(document).on 'submit:prepare', 'form', ->
   form = $(this)
 
   # Don't handle remote requests. They'll have a header set instead.

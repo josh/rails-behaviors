@@ -16,7 +16,7 @@
 #
 #     <input type="submit" data-disable-with="Submitting...">
 
-$(document).delegate 'form', 'submit:prepare', ->
+$(document).on 'submit:prepare', 'form', ->
   for input in $(this).find 'input[type=submit][data-disable-with]'
     input = $ input
     # Get current value, default to 'Submit' text otherwise
@@ -38,7 +38,7 @@ $(document).delegate 'form', 'submit:prepare', ->
   return
 
 # Renable controls when AJAX request finishes
-$(document).delegate 'form', 'ajaxComplete', ->
+$(document).on 'ajaxComplete', 'form', ->
   # Find all submit inputs to re-enable
   for input in $(this).find 'input[type=submit][data-enable-with]'
     $(input).val $(input).attr 'data-enable-with'

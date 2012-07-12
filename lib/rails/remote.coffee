@@ -152,7 +152,7 @@
 
 # Intercept all clicked links with data-remote and turn
 # it into a XHR request instead.
-$(document).delegate 'a[data-remote]', 'click', (event) ->
+$(document).on 'click', 'a[data-remote]', (event) ->
   element  = $(this)
   settings = {}
 
@@ -183,7 +183,7 @@ $(document).delegate 'a[data-remote]', 'click', (event) ->
 
 # Intercept all form submissions with data-remote and turn
 # it into a XHR request instead.
-$(document).delegate 'form[data-remote]', 'submit', (event) ->
+$(document).on 'submit', 'form[data-remote]', (event) ->
   form     = $(this)
   settings = {}
 

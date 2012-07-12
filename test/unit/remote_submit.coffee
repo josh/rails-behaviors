@@ -33,7 +33,7 @@ each frameworks, (framework) ->
   test "form submit button value is serialized for data-remote-submit", 1, ->
     form = @$("<form data-remote-submit action='/echo?callback=formSubmitted'><button type=submit name=submit value=comment>Comment</button><button type=submit name=submit value=cancel>Cancel</button></form>").appendTo('body')
 
-    form.bind 'submit', ->
+    form.on 'submit', ->
       equal form.serialize(), "submit=comment"
       false
 

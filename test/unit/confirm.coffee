@@ -37,7 +37,7 @@ each frameworks, (framework) ->
     link = @$("<a data-confirm='Are you sure?' href='javascript:void(0);'>")[0]
     @document.body.appendChild link
 
-    @$(@document).delegate 'a', 'click.test', ->
+    @$(@document).on 'click.test', 'a', ->
       ok true
 
     click link
@@ -50,7 +50,7 @@ each frameworks, (framework) ->
     link = @$("<a data-confirm='Are you sure?' href='javascript:void(0);'>")[0]
     @document.body.appendChild link
 
-    @$(@document).delegate 'a', 'click.test', ->
+    @$(@document).on 'click.test', 'a', ->
       ok false
 
     click link
