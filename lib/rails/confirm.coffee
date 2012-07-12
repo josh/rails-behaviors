@@ -1,6 +1,6 @@
 # Confirm
 #
-#= require ./click_prepare
+#= require ./prepare
 #
 # Prompts native confirm dialog before activating link.
 #
