@@ -9,7 +9,7 @@
 # Skip for Zepto which doesn't have ajaxSetup but does already support
 # `ajaxBeforeSend`. It'd be better to feature test for the event and
 # see if we need to install it.
-if $.ajaxSetup
+unless Zepto?
 
   # One caveat about using `$.ajaxSetup` is that its easily clobbered.
   # If anything else tries to register another global `beforeSend`
