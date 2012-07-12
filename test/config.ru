@@ -34,7 +34,7 @@ map "/zepto-0.8.html" do
       <script type="text/javascript" src="/js/zepto-0.8.js"></script>
       <script type="text/javascript" src="/js/rails.js"></script>
       <script type="text/javascript">
-        $(document).bind('ajaxSuccess', function(event, xhr) {
+        $(document).on('ajaxSuccess', function(event, xhr) {
           if (xhr.getResponseHeader('Content-Type') === 'application/javascript') {
             eval(xhr.responseText);
           }

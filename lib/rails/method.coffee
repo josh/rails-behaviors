@@ -21,7 +21,7 @@
 #
 #     <a href="/posts/1" data-method="delete">Delete</a>
 
-$(document).delegate 'a[data-method]', 'click', (event) ->
+$(document).on 'click', 'a[data-method]', (event) ->
   element = $(this)
 
   # Don't handle remote requests

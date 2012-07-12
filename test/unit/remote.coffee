@@ -46,7 +46,7 @@ each frameworks, (framework) ->
   asyncTest "link is submitted via AJAX that accepts JSON", 2, ->
     link = @$("<a data-remote href='/echo' data-type=json>").appendTo('body')
 
-    @$(@document).delegate 'a', 'ajaxSuccess.test', (event, xhr, settings, data) ->
+    @$(@document).on 'ajaxSuccess.test', 'a', (event, xhr, settings, data) ->
       equal 'GET', data.REQUEST_METHOD
       equal '/echo', data.REQUEST_PATH
       start()
@@ -56,11 +56,11 @@ each frameworks, (framework) ->
   asyncTest "link is prevented from being submitted", 1, ->
     link = @$("<a data-remote href='/echo'>").appendTo('body')
 
-    @$(@document).delegate 'a', 'ajaxBeforeSend.test', ->
+    @$(@document).on 'ajaxBeforeSend.test', 'a', ->
       ok true
       false
 
-    @$(@document).delegate 'a', 'ajaxSuccess.test', ->
+    @$(@document).on 'ajaxSuccess.test', 'a', ->
       ok false
 
     click link[0]
@@ -114,7 +114,7 @@ each frameworks, (framework) ->
   asyncTest "form is submitted via AJAX that accepts JSON", 3, ->
     form = @$("<form data-remote data-type=json action='/echo'><input name=foo value=bar></form>").appendTo('body')
 
-    @$(@document).delegate 'form', 'ajaxSuccess.test', (event, xhr, settings, data) ->
+    @$(@document).on 'ajaxSuccess.test', 'form', (event, xhr, settings, data) ->
       equal 'GET', data.REQUEST_METHOD
       equal '/echo', data.REQUEST_PATH
       equal 'bar', data.params['foo']
@@ -125,11 +125,11 @@ each frameworks, (framework) ->
   asyncTest "form is prevented from being submitted", 1, ->
     form = @$("<form data-remote data-type=json action='/echo'><input name=foo value=bar></form>").appendTo('body')
 
-    @$(@document).delegate 'form', 'ajaxBeforeSend.test', ->
+    @$(@document).on 'ajaxBeforeSend.test', 'form', ->
       ok true
       false
 
-    @$(@document).delegate 'form', 'ajaxSuccess.test', ->
+    @$(@document).on 'ajaxSuccess.test', 'form', ->
       ok false
 
     form.submit()

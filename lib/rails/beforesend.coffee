@@ -17,7 +17,7 @@ unless Zepto?
   #
   # To work around this, register your global `beforeSend` handler with:
   #
-  #     $(document).bind('ajaxBeforeSend', function() {})
+  #     $(document).on('ajaxBeforeSend', function() {})
   #
   $.ajaxSetup
     beforeSend: (xhr, settings) ->

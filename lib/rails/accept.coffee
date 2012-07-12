@@ -26,6 +26,6 @@
 #      application/ecmascript, application/x-ecmascript"
 #
 
-$(document).bind 'ajaxBeforeSend', (event, xhr, settings) ->
+$(document).on 'ajaxBeforeSend', (event, xhr, settings) ->
   unless settings.dataType
     xhr.setRequestHeader 'Accept', '*/*;q=0.5, ' + settings.accepts.script
