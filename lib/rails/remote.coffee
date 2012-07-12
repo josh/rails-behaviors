@@ -166,7 +166,7 @@ $(document).on 'click', 'a[data-remote]', (event) ->
     settings.type = type
 
   # Use anchor href as the AJAX url
-  if url = element.attr 'href'
+  if url = this.href
     settings.url = url
 
   # Allow dataType to be changed using the `data-type` attribute
@@ -192,11 +192,11 @@ $(document).on 'submit', 'form[data-remote]', (event) ->
   settings.context = this
 
   # Use form method as the AJAX method
-  if type = form.attr 'method'
+  if type = this.method
     settings.type = type
 
   # Use form action as the AJAX url
-  if url = form.attr 'action'
+  if url = this.action
     settings.url = url
 
   # Seralize form inputs

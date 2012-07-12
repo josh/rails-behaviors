@@ -36,7 +36,7 @@ $(document).on 'submit', 'form', ->
   return if form.is 'form[data-remote]'
 
   # Skip for GET requests
-  return if form.attr('method').toUpperCase() is 'GET'
+  return if !this.method or this.method.toUpperCase() is 'GET'
 
   # Skip for cross domain requests. Other sites can't do much
   # with our token.
