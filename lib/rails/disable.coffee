@@ -1,5 +1,7 @@
 # Disable
 #
+#= require ./prepare
+#
 # Disables clicked buttons with text in `data-disable-with`.
 #
 # ### Markup
@@ -14,7 +16,7 @@
 #
 #     <input type="submit" data-disable-with="Submitting...">
 
-$(document).delegate 'form', 'submit', ->
+$(document).delegate 'form', 'submit:prepare', ->
   for input in $(this).find 'input[type=submit][data-disable-with]'
     input = $ input
     # Get current value, default to 'Submit' text otherwise

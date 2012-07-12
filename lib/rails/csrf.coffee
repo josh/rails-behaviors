@@ -1,6 +1,7 @@
 # CSRF
 #
 #= require ./beforesend
+#= require ./prepare
 #
 # Adds CSRF tokens to AJAX requests and forms missing them.
 #
@@ -29,14 +30,14 @@ $(document).bind 'ajaxBeforeSend', (event, xhr, settings) ->
 
 # Listen for form submissions and inject hidden `authenticity_token`
 # input into forms missing them.
-$(document).delegate 'form', 'submit', (event) ->
+$(document).delegate 'form', 'submit:prepare', ->
   form = $(this)
 
   # Don't handle remote requests. They'll have a header set instead.
   return if form.is 'form[data-remote]'
 
   # Skip for GET requests
-  return if form.attr('method').toUpperCase() is 'GET'
+  return if !this.method or this.method.toUpperCase() is 'GET'
 
   # Skip for cross domain requests. Other sites can't do much
   # with our token.
