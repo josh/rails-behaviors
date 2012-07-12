@@ -28,6 +28,12 @@ if Zepto?
       originalEvent.stopPropagation()
       stop.apply this
 
+    # Stopping immediate propgation stops the original click phase
+    stopImmediate = event.stopImmediatePropagation
+    event.stopImmediatePropagation = ->
+      originalEvent.stopImmediatePropagation()
+      stopImmediate.apply this
+
     originalEvent.target.dispatchEvent event
     event.result
 
