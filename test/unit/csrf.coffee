@@ -29,7 +29,9 @@ each frameworks, (framework) ->
         start()
 
   asyncTest "doesn't add X-CSRF-Token to cross domain JSONP requests", ->
-    return start() unless @$.support?.cors
+    unless @$.support?.cors
+      ok true
+      return start()
 
     token = "2705a83a5a0659cce34583972637eda5"
     @$("<meta name=csrf-token content=#{token}>").appendTo('body')
