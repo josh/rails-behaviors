@@ -1,5 +1,7 @@
 # Confirm
 #
+#= require ./prepare
+#
 # Prompts native confirm dialog before activating link.
 #
 # ### Markup
@@ -14,7 +16,7 @@
 #
 #     <a href="/" data-confirm="Are you sure?">Delete</a>
 
-$(document).on 'click', 'a[data-confirm]', (event) ->
+$(document).on 'click:prepare', 'a[data-confirm]', (event) ->
   if message = $(this).attr 'data-confirm'
     # Prompt message with native confirm dialog
     unless confirm message
