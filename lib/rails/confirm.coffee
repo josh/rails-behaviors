@@ -21,4 +21,5 @@ $(document).on 'click', 'a[data-confirm]', (event) ->
       # Prevent other handlers on the document from running
       event.stopImmediatePropagation()
       # Prevent default action from running
-      return false
+      event.preventDefault()
+  return
