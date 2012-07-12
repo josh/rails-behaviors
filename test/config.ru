@@ -18,20 +18,10 @@ map "/js" do
   run Assets
 end
 
-map "/jquery-1.7.1.html" do
+map "/jquery-1.7.2.html" do
   run lambda { |env|
     html = <<-HTML
-      <script type="text/javascript" src="/js/jquery-1.7.1.js"></script>
-      <script type="text/javascript" src="/js/rails.js"></script>
-    HTML
-    [200, {'Content-Type' => 'text/html'}, [html]]
-  }
-end
-
-map "/jquery-1.6.4.html" do
-  run lambda { |env|
-    html = <<-HTML
-      <script type="text/javascript" src="/js/jquery-1.6.4.js"></script>
+      <script type="text/javascript" src="/js/jquery-1.7.2.js"></script>
       <script type="text/javascript" src="/js/rails.js"></script>
     HTML
     [200, {'Content-Type' => 'text/html'}, [html]]

@@ -2,7 +2,7 @@
 #= require_self
 #= require_directory ./unit
 
-window.frameworks = ["jquery-1.7.1", "jquery-1.6.4", "zepto-0.8"]
+window.frameworks = ["jquery-1.7.2", "zepto-0.8"]
 
 window.each = (array, block) ->
   for item in array
