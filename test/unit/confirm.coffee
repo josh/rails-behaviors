@@ -54,3 +54,16 @@ each frameworks, (framework) ->
       ok false
 
     click link
+
+  test "works with <button> elements as well", 1, ->
+    @window.confirm = ->
+      ok true
+      true
+
+    @window.clickLink = ->
+      ok true
+
+    button = @$("<button type='button' data-confirm='Are you sure?'>")[0]
+    @document.body.appendChild button
+
+    click button
