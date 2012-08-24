@@ -14,9 +14,23 @@
 # `data-confirm` - Message to pass to `confirm()`.
 # ```
 #
-#     <a href="/" data-confirm="Are you sure?">Delete</a>
+# ``` html
+# <a href="/" data-confirm="Are you sure?">Delete</a>
+# ```
+#
+# `<button>`
+#
+# ``` definition-table
+# Attribute - Description
+#
+# `data-confirm` - Message to pass to `confirm()`.
+# ```
+#
+# ``` html
+# <button type="submit" data-confirm="Are you sure?">Delete</a>
+# ```
 
-$(document).on 'click:prepare', 'a[data-confirm]', (event) ->
+$(document).on 'click:prepare', 'a[data-confirm], button[data-confirm]', (event) ->
   if message = $(this).attr 'data-confirm'
     # Prompt message with native confirm dialog
     unless confirm message
