@@ -50,6 +50,20 @@ else
       lastPreparedTimestamp = event.timeStamp
     return
 
+  # Install stub prepare handler to ensure preDispatch is invoked
+  setup = (event) -> ->
+    $(this).on "#{event}.prepare", ->
+    return
+
+  # Uninstall stub prepare handler to keep things tidy
+  teardown = (event) -> ->
+    $(this).off "#{event}.prepare", ->
+    return
+
   # Install preDispatch handlers into click and submit
   $.event.special.click = {preDispatch}
   $.event.special.submit = {preDispatch}
+
+  # Install stub handlers when someone is listening to prepare events
+  $.event.special['click:prepare'] = setup: setup('click'), teardown: teardown('click')
+  $.event.special['submit:prepare'] = setup: setup('submit'), teardown: teardown('submit')
