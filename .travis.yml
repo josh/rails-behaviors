@@ -7,7 +7,7 @@ install: gem install rack sprockets coffee-script
 before_script:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
-  - rackup ./test/config.ru
+  - rackup -D ./test/config.ru
   - sleep 2
 
 script: phantomjs ./vendor/run-qunit.coffee "http://localhost:9292/"
