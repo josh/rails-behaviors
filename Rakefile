@@ -12,7 +12,6 @@ Assets = Sprockets::Environment.new(root) do |env|
   env.append_path "lib"
 end
 
-CLEAN.include "dist/*"
 CLEAN.include "lib/rails/*.js"
 
 class IgnoreDirectives < Sprockets::DirectiveProcessor
@@ -65,13 +64,6 @@ task :gem => :build do
   spec.files = Dir["README.md", "lib/**/*.{rb,js}"]
 
   Gem::Builder.new(spec).build
-end
-
-task :dist do
-  FileUtils.mkdir_p 'dist/'
-  Assets['rails.js'].write_to('dist/rails.js')
-  Assets.js_compressor = Uglifier.new
-  Assets['rails.js'].write_to('dist/rails.min.js')
 end
 
 
