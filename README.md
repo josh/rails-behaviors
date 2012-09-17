@@ -14,19 +14,11 @@ You'll need [Sprockets 2](github.com/sstephenson/sprockets/) if you want to use 
 
 ## Installation
 
-Theres a couple ways to get setup.
+rails-behaviors is distributed through the [bower](https://github.com/twitter/bower) package manager.
 
-If you're using Rails 3.1, the best way is to use the gem. Add `gem 'rails-behaviors'` to your `Gemfile` and add `//= require rails` to your `application.js`.
-
-Other versions of Rails or even Sinatra can still use the gem as long as you're using [Sprockets](https://github.com/sstephenson/sprockets/). Add `rails-behaviors` to your `Gemfile`. Depending on your setup, add `Rails::Behaviors.path` to your Sprockets environment.
-
-``` ruby
-env = Sprockets::Environment.new
-env.append_path Rails::Behaviors.path
+``` bash
+bower install rails-behaviors
 ```
-
-An alternative option is just to download the compiled single JS file under [Downloads](https://github.com/josh/rails-behaviors/downloads). This will be compatable with any generic JS setup. So if you're using something else, like [Jammit](http://documentcloud.github.com/jammit/), this way is your best bet.
-
 
 ## Migrating from jquery-ujs
 
