@@ -50,10 +50,6 @@ See [http://josh.github.com/rails-behaviors/](http://josh.github.com/rails-behav
     $ cd rails-behaviors/
     $ bundle install
 
-Compile and minify
-
-    $ bundle exec rake dist
-
 Run tests
 
     $ bundle exec rake test
