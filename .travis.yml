@@ -10,7 +10,7 @@ before_script:
   - rackup ./test/config.ru
   - sleep 2
 
-script: phantomjs ./test/run-qunit.coffee "http://localhost:9292/"
+script: phantomjs ./vendor/run-qunit.coffee "http://localhost:9292/"
 
 notifications:
   disabled: true
