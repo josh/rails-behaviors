@@ -1,5 +1,5 @@
 /**
- * Rails Behaviors v0.4.1
+ * Rails Behaviors v0.5.0
  * https://github.com/josh/rails-behaviors
  *
  * Copyright 2012, Joshua Peek
