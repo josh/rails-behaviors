@@ -1,7 +1,7 @@
 require 'coffee-script'
 
 task :build do
-  Dir['lib/**/*.coffee'].each do |src|
+  Dir['./*.coffee'].each do |src|
     dest = src.sub(/\.coffee/, '.js')
     data = CoffeeScript.compile(File.read(src))
     File.open(dest, 'w') { |f| f.write(data) }

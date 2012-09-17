@@ -5,8 +5,8 @@ require 'json'
 Root = File.expand_path("../..", __FILE__)
 
 Assets = Sprockets::Environment.new(Root) do |env|
+  env.append_path "."
   env.append_path "test"
-  env.append_path "lib"
   env.append_path "vendor"
 end
 
@@ -22,7 +22,7 @@ map "/jquery-1.7.2.html" do
   run lambda { |env|
     html = <<-HTML
       <script type="text/javascript" src="/js/jquery-1.7.2.js"></script>
-      <script type="text/javascript" src="/js/rails.js"></script>
+      <script type="text/javascript" src="/js/index.js"></script>
     HTML
     [200, {'Content-Type' => 'text/html'}, [html]]
   }
@@ -32,7 +32,7 @@ map "/zepto-0.8.html" do
   run lambda { |env|
     html = <<-HTML
       <script type="text/javascript" src="/js/zepto-0.8.js"></script>
-      <script type="text/javascript" src="/js/rails.js"></script>
+      <script type="text/javascript" src="/js/index.js"></script>
       <script type="text/javascript">
         $(document).on('ajaxSuccess', function(event, xhr) {
           if (xhr.getResponseHeader('Content-Type') === 'application/javascript') {
@@ -49,7 +49,7 @@ map "/zepto-1.0rc1.html" do
   run lambda { |env|
     html = <<-HTML
       <script type="text/javascript" src="/js/zepto-1.0rc1.js"></script>
-      <script type="text/javascript" src="/js/rails.js"></script>
+      <script type="text/javascript" src="/js/index.js"></script>
     HTML
     [200, {'Content-Type' => 'text/html'}, [html]]
   }
