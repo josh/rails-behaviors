@@ -44,7 +44,8 @@ See [http://josh.github.com/rails-behaviors/](http://josh.github.com/rails-behav
 
 Run tests
 
-    $ bundle exec rake test
+    $ rackup -p 3000 test/config.ru
+    $ open http://localhost:3000/
 
 ## License
 
