@@ -13,23 +13,6 @@ module Rails
       PATH
     end
 
-    # Internal: Get inline documentation for module.
-    #
-    # path - String require path for module
-    #
-    # Examples
-    #
-    #   Rails::Behaviors.documentation_for("rails/remote")
-    #
-    # Returns HTML string.
-    def self.documentation_for(path)
-      require 'rails/behaviors/documentation'
-      unless File.exist?(path)
-        filename = "#{File.join(Rails::Behaviors.path, path)}.coffee"
-      end
-      Documentation.parse(filename)
-    end
-
     # BS for Rails
     if defined? ::Rails::Railtie
       class Railtie < ::Rails::Railtie

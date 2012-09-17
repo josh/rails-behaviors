@@ -95,13 +95,3 @@ task :test do
 
   exit status
 end
-
-file "docs/index.html" => ["docs/index.html.erb"] + FileList["lib/**/*.coffee"] do
-  require 'erb'
-  template = ERB.new(File.read("docs/index.html.erb"))
-  result   = template.result
-  File.open("docs/index.html", 'w') { |f| f.write result }
-end
-CLOBBER.include 'docs/index.html'
-
-task :docs => ['docs/index.html']
