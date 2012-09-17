@@ -2,9 +2,15 @@ language: ruby
 rvm:
   - 1.9.3
 
+install: gem install rack
+
 before_script:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
+  - rackup -p 3000 ./test/config.ru
+  - sleep 2
+
+script: phantomjs ./test/run-qunit.coffee "http://localhost:3000/"
 
 notifications:
   disabled: true
