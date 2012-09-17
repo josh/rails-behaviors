@@ -1,5 +1,5 @@
 {
   "name": "rails-behaviors",
   "version": "0.4.1",
-  "main": "./lib/rails.js"
+  "main": "./index.js"
 }
