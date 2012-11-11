@@ -9,7 +9,7 @@ This is an alternative to [jquery-ujs](https://github.com/rails/jquery-ujs). Fir
 
 **jQuery 1.7.2+** or **Zepto 0.8+**
 
-You'll need [Sprockets 2](github.com/sstephenson/sprockets/) if you want to use the gem version. Otherwise you can download the standalone file from the [Downloads](https://github.com/sstephenson/sprockets/downloads) section.
+You'll need [Sprockets 2](https://github.com/sstephenson/sprockets) if you want to use the gem version. Otherwise you can download the standalone file from the [Downloads](https://github.com/sstephenson/sprockets/downloads) section.
 
 
 ## Installation
