@@ -2,7 +2,7 @@
  * Rails Behaviors
  * https://github.com/josh/rails-behaviors
  *
- * Copyright 2012, Joshua Peek
+ * Copyright 2013, Joshua Peek
  * Released under the MIT License
  */
 
