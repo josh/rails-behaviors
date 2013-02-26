@@ -28,6 +28,26 @@ map "/jquery-1.7.2.html" do
   }
 end
 
+map "/jquery-1.8.3.html" do
+  run lambda { |env|
+    html = <<-HTML
+      <script type="text/javascript" src="/js/jquery-1.8.3.js"></script>
+      <script type="text/javascript" src="/js/index.js"></script>
+    HTML
+    [200, {'Content-Type' => 'text/html'}, [html]]
+  }
+end
+
+map "/jquery-1.9.1.html" do
+  run lambda { |env|
+    html = <<-HTML
+      <script type="text/javascript" src="/js/jquery-1.9.1.js"></script>
+      <script type="text/javascript" src="/js/index.js"></script>
+    HTML
+    [200, {'Content-Type' => 'text/html'}, [html]]
+  }
+end
+
 map "/zepto-0.8.html" do
   run lambda { |env|
     html = <<-HTML
