@@ -192,7 +192,7 @@ $(document).on 'submit', 'form[data-remote]', (event) ->
   settings.context = this
 
   # Use form method as the AJAX method
-  if type = this.method
+  if type = form.attr 'method'
     settings.type = type
 
   # Use form action as the AJAX url
