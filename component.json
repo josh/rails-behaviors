@@ -1,5 +1,11 @@
 {
   "name": "rails",
   "version": "0.7.0",
-  "main": "./index.js"
+  "main": "./index.js",
+  "ignore": [
+    ".travis.yml",
+    "Rakefile",
+    "test/",
+    "vendor/"
+  ]
 }
