@@ -214,3 +214,13 @@ $(document).on 'submit', 'form[data-remote]', (event) ->
   # Prevent default action and don't actually submit the form
   event.preventDefault()
   false
+
+# Hold a reference to sent XHR object.
+$(document).on 'ajaxSend', '[data-remote]', (event, xhr) ->
+  $(this).data 'remote-xhr', xhr
+  return
+
+# Clear reference to completed XHR object.
+$(document).on 'ajaxComplete', '[data-remote]', (event, xhr) ->
+  $(this).removeData? 'remote-xhr'
+  return

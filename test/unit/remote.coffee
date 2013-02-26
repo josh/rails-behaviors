@@ -67,6 +67,20 @@ each frameworks, (framework) ->
 
     setTimeout (-> start()), 50
 
+  asyncTest "link xhr is exposed via data remote-xhr", 2, ->
+    link = @$("<a data-remote href='/echo'>").appendTo('body')
+
+    @$(@document).on 'ajaxSend.test', 'a', ->
+      ok link.data 'remote-xhr'
+
+    @$(@document).on 'ajaxSuccess.test', 'a', ->
+      setTimeout ->
+        ok !link.data('remote-xhr')
+        start()
+      , 0
+
+    click link[0]
+
 
   asyncTest "form is submitted via AJAX with GET method", 3, ->
     form = @$("<form data-remote action='/echo?callback=formSubmitted'><input name=foo value=bar></form>").appendTo('body')
@@ -135,3 +149,17 @@ each frameworks, (framework) ->
     form.submit()
 
     setTimeout (-> start()), 50
+
+  asyncTest "form xhr is exposed via data remote-xhr", 2, ->
+    form = @$("<form data-remote action='/echo'><input name=foo value=bar></form>").appendTo('body')
+
+    @$(@document).on 'ajaxSend.test', 'form', ->
+      ok form.data 'remote-xhr'
+
+    @$(@document).on 'ajaxSuccess.test', 'form', ->
+      setTimeout ->
+        ok !form.data('remote-xhr')
+        start()
+      , 0
+
+    form.submit()
