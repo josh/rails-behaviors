@@ -48,23 +48,6 @@ map "/jquery-1.9.1.html" do
   }
 end
 
-map "/zepto-0.8.html" do
-  run lambda { |env|
-    html = <<-HTML
-      <script type="text/javascript" src="/js/zepto-0.8.js"></script>
-      <script type="text/javascript" src="/js/index.js"></script>
-      <script type="text/javascript">
-        $(document).on('ajaxSuccess', function(event, xhr) {
-          if (xhr.getResponseHeader('Content-Type') === 'application/javascript') {
-            eval(xhr.responseText);
-          }
-        });
-      </script>
-    HTML
-    [200, {'Content-Type' => 'text/html'}, [html]]
-  }
-end
-
 map "/zepto-1.0rc1.html" do
   run lambda { |env|
     html = <<-HTML
