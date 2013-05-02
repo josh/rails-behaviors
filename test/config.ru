@@ -48,10 +48,10 @@ map "/jquery-1.9.1.html" do
   }
 end
 
-map "/zepto-1.0rc1.html" do
+map "/zepto-1.0.html" do
   run lambda { |env|
     html = <<-HTML
-      <script type="text/javascript" src="/js/zepto-1.0rc1.js"></script>
+      <script type="text/javascript" src="/js/zepto-1.0.js"></script>
       <script type="text/javascript" src="/js/index.js"></script>
     HTML
     [200, {'Content-Type' => 'text/html'}, [html]]
