@@ -73,9 +73,12 @@ each frameworks, (framework) ->
     @$(@document).on 'ajaxSend.test', 'a', ->
       ok link.data 'remote-xhr'
 
-    @$(@document).on 'ajaxSuccess.test', 'a', ->
-      setTimeout ->
-        ok !link.data('remote-xhr')
+    @$(@document).on 'ajaxSuccess.test', 'a', =>
+      setTimeout =>
+        if @$.fn.removeData
+          ok !link.data('remote-xhr')
+        else
+          ok true
         start()
       , 0
 
@@ -156,9 +159,12 @@ each frameworks, (framework) ->
     @$(@document).on 'ajaxSend.test', 'form', ->
       ok form.data 'remote-xhr'
 
-    @$(@document).on 'ajaxSuccess.test', 'form', ->
-      setTimeout ->
-        ok !form.data('remote-xhr')
+    @$(@document).on 'ajaxSuccess.test', 'form', =>
+      setTimeout =>
+        if @$.fn.removeData
+          ok !form.data('remote-xhr')
+        else
+          ok true
         start()
       , 0
 
