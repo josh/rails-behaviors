@@ -11,7 +11,6 @@
 //= require ./accept
 //= require ./confirm
 //= require ./csrf
-//= require ./ie_utf8
 //= require ./disable
 //= require ./method
 //= require ./remote
