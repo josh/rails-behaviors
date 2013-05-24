@@ -1,5 +1,5 @@
 {
-  "name": "rails",
+  "name": "rails-behaviors",
   "version": "0.7.1",
   "main": "./index.js",
   "ignore": [
