@@ -36,8 +36,9 @@ else
   # preDispatch is a new hook added in 1.7.2. Its not documented as
   # a real public API, but we'll abuse it anyway.
   preDispatch = (event) ->
+    timestamp = "#{event.type}:" + event.timeStamp
     # Check if this event has dispatched a prepare event already
-    if event.timeStamp isnt lastPreparedTimestamp
+    if timestamp isnt lastPreparedTimestamp
       # Reuse the existing event instead of creating a new copy. Any
       # calls to preventDefault or stopPropagation will take
       # immediate effect.
@@ -47,7 +48,7 @@ else
       # Restore the old event type
       event.type = origType
       # Mark event's timestamp id as prepared
-      lastPreparedTimestamp = event.timeStamp
+      lastPreparedTimestamp = timestamp
     return
 
   # Install stub prepare handler to ensure preDispatch is invoked
