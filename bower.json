@@ -4,6 +4,8 @@
   "main": "./index.js",
   "ignore": [
     ".travis.yml",
+    "Gemfile",
+    "Gemfile.lock",
     "Rakefile",
     "test/",
     "vendor/"
