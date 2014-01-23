@@ -2,12 +2,10 @@ language: ruby
 rvm:
   - 1.9.3
 
-install: gem install rack sprockets coffee-script
-
 before_script:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
-  - rackup -D ./test/config.ru
+  - bundle exec rackup -D ./test/config.ru
   - sleep 2
 
 script: phantomjs ./vendor/run-qunit.coffee "http://localhost:9292/"
