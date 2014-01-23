@@ -20,6 +20,19 @@ rails-behaviors is distributed through the [bower](https://github.com/twitter/bo
 bower install rails-behaviors
 ```
 
+## Testing
+
+For testing you will need:
+
+* Ruby 1.9.3+
+* Bundler (`gem install bundler`)
+
+``` bash
+bundle install
+bundle exec rackup -E test ./test/config.ru
+# now open the browser at http://localhost:9292
+```
+
 ## Migrating from jquery-ujs
 
 This library handles all the `data-*` behaviors defined in Rails. So its roughly feature for feature identicial with respect to the HTML.
