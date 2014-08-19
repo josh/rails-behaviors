@@ -40,7 +40,7 @@ This library handles all the `data-*` behaviors defined in Rails. So its roughly
 The differences are in the JS interface.
 
 1. There are no `ajax:*` events. jQuery already has global ajax events built in, so there is no point in duplicating that functionality. Doing a find and replace for `"ajax:"` events should give you a good start. You're looking to replace `ajax:success` with `ajaxSuccess`, `ajax:error` with `ajaxError`, etc.
-2. There are no global configuration options. Theres no equivalent for `$.rails`. Your probably should have never used that in the first place.
+2. There are no global configuration options. Theres no equivalent for `$.rails`. You probably should have never used that in the first place.
 
 **NOTE** You **can not** use rails-behaviors and jquery-ujs at the same time.
 
