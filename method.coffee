@@ -37,6 +37,17 @@ $(document).on 'click', 'a[data-method]', (event) ->
   form.method = 'POST'
   form.action = element.attr 'href'
   form.style.display = 'none'
+  
+  csrfToken = $('meta[name=csrf-token]').attr('content')
+  csrfParam = $('meta[name=csrf-param]').attr('content')
+  
+  # Add the CSRF token if one exists on the page
+  if csrfToken and csrfParam
+    input = document.createElement 'input'
+    input.setAttribute 'type', 'hidden'
+    input.setAttribute 'name', csrfParam
+    input.setAttribute 'value', csrfToken
+    form.appendChild input
 
   # Set `_method` to simulate other methods like PUT and DELETE.
   if method isnt 'post'
