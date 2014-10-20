@@ -46,6 +46,15 @@ $(document).on 'click', 'a[data-method]', (event) ->
     input.setAttribute 'value', method
     form.appendChild input
 
+    csrfToken = $('meta[name=csrf-token]').attr('content')
+    csrfParam = $('meta[name=csrf-param]').attr('content')
+    if (csrfParam != undefined && csrfToken != undefined)
+      input = document.createElement 'input'
+      input.setAttribute 'type', 'hidden'
+      input.setAttribute 'name', csrfParam
+      input.setAttribute 'value', csrfToken
+      form.appendChild input
+
   # Add it to the document and fire it off
   document.body.appendChild form
   $(form).submit()
