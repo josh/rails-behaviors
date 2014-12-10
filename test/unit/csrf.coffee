@@ -80,6 +80,19 @@ each frameworks, (framework) ->
 
     form.submit()
 
+  asyncTest "adds X-CSRF-Token to POST forms when URL contains basic auth credentials", ->
+    token = "2705a83a5a0659cce34583972637eda5"
+    @$("<meta content=authenticity_token name=csrf-param>").appendTo('body')
+    @$("<meta name=csrf-token content=#{token}>").appendTo('body')
+
+    form = @$("<form action='#{@window.location.protocol}//username:password@#{@window.location.host}/echo?iframe=1&callback=formSubmitted' method=POST></form>").appendTo('body')
+
+    window.formSubmitted = (data) ->
+      equal token, data.params['authenticity_token']
+      start()
+
+    form.submit()
+
   asyncTest "doesn't add X-CSRF-Token to GET forms", ->
     token = "2705a83a5a0659cce34583972637eda5"
     @$("<meta content=authenticity_token name=csrf-param>").appendTo('body')
