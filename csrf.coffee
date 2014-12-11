@@ -67,4 +67,5 @@ origin.href = location.href
 isSameOrigin = (url) ->
   a = document.createElement 'a'
   a.href = url
+  a.href = a.href
   "#{origin.protocol}//#{origin.host}" == "#{a.protocol}//#{a.host}"
