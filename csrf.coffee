@@ -60,8 +60,12 @@ $(document).on 'submit:prepare', 'form', ->
 
   return
 
+origin = document.createElement 'a'
+origin.href = location.href
+
 # Check if url is within the same origin policy.
 isSameOrigin = (url) ->
   a = document.createElement 'a'
   a.href = url
-  "#{location.protocol}//#{location.host}" == "#{a.protocol}//#{a.host}"
+  a.href = a.href
+  "#{origin.protocol}//#{origin.host}" == "#{a.protocol}//#{a.host}"
