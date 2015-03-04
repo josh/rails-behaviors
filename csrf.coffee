@@ -70,10 +70,10 @@ isSameOrigin = (url) ->
   a.href = a.href
 
   # Make sure that the browser parses out a protocol.
-  a.protocol && origin.protocol && a.protocol != "" && origin.protocol != "" &&
+  a.protocol && origin.protocol &&
 
   # Make sure that the browser parses out host.
-  a.host && origin.host && a.host != "" && origin.host != "" &&
+  a.host && origin.host &&
 
   # Make sure that the protocols and hosts match.
   "#{origin.protocol}//#{origin.host}" == "#{a.protocol}//#{a.host}"
