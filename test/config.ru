@@ -50,7 +50,7 @@ run lambda { |env|
   elsif env['PATH_INFO'] =~ %r{^/(.+)\.html$} && FRAMEWORKS.include?($1)
     html = <<-HTML
       <script type="text/javascript" src="/js/#{$1}.js"></script>
-      <script type="text/javascript" src="/js/index.js"></script>
+      <script type="text/javascript" src="/js/index.js?#{Time.now.to_i}"></script>
     HTML
     [200, {'Content-Type' => 'text/html'}, [html]]
   else
