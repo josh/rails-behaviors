@@ -3,11 +3,7 @@ language: ruby
 rvm:
   - 1.9.3
 
-before_script:
-  - bundle exec rackup -D ./test/config.ru
-  - sleep 2
-
-script: phantomjs ./vendor/run-qunit.coffee "http://localhost:9292/"
+script: script/test
 
 notifications:
   disabled: true
