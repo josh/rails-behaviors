@@ -4,6 +4,8 @@ require 'json'
 
 Root = File.expand_path("../..", __FILE__)
 
+FRAMEWORKS = %w[ jquery-1.7.2 jquery-1.8.3 jquery-1.9.1 jquery-2.0.3 jquery-2.1.3 zepto-1.0 zepto-1.1.6 ]
+
 Assets = Sprockets::Environment.new(Root) do |env|
   env.append_path "."
   env.append_path "test"
@@ -17,77 +19,6 @@ end
 map "/js" do
   run Assets
 end
-
-map "/jquery-1.7.2.html" do
-  run lambda { |env|
-    html = <<-HTML
-      <script type="text/javascript" src="/js/jquery-1.7.2.js"></script>
-      <script type="text/javascript" src="/js/index.js"></script>
-    HTML
-    [200, {'Content-Type' => 'text/html'}, [html]]
-  }
-end
-
-map "/jquery-1.8.3.html" do
-  run lambda { |env|
-    html = <<-HTML
-      <script type="text/javascript" src="/js/jquery-1.8.3.js"></script>
-      <script type="text/javascript" src="/js/index.js"></script>
-    HTML
-    [200, {'Content-Type' => 'text/html'}, [html]]
-  }
-end
-
-map "/jquery-1.9.1.html" do
-  run lambda { |env|
-    html = <<-HTML
-      <script type="text/javascript" src="/js/jquery-1.9.1.js"></script>
-      <script type="text/javascript" src="/js/index.js"></script>
-    HTML
-    [200, {'Content-Type' => 'text/html'}, [html]]
-  }
-end
-
-map "/jquery-2.0.3.html" do
-  run lambda { |env|
-    html = <<-HTML
-      <script type="text/javascript" src="/js/jquery-2.0.3.js"></script>
-      <script type="text/javascript" src="/js/index.js"></script>
-    HTML
-    [200, {'Content-Type' => 'text/html'}, [html]]
-  }
-end
-
-map "/jquery-2.1.3.html" do
-  run lambda { |env|
-    html = <<-HTML
-      <script type="text/javascript" src="/js/jquery-2.1.3.js"></script>
-      <script type="text/javascript" src="/js/index.js"></script>
-    HTML
-    [200, {'Content-Type' => 'text/html'}, [html]]
-  }
-end
-
-map "/zepto-1.0.html" do
-  run lambda { |env|
-    html = <<-HTML
-      <script type="text/javascript" src="/js/zepto-1.0.js"></script>
-      <script type="text/javascript" src="/js/index.js"></script>
-    HTML
-    [200, {'Content-Type' => 'text/html'}, [html]]
-  }
-end
-
-map "/zepto-1.1.6.html" do
-  run lambda { |env|
-    html = <<-HTML
-      <script type="text/javascript" src="/js/zepto-1.1.6.js"></script>
-      <script type="text/javascript" src="/js/index.js"></script>
-    HTML
-    [200, {'Content-Type' => 'text/html'}, [html]]
-  }
-end
-
 
 map "/echo" do
   use Rack::MethodOverride
@@ -111,5 +42,18 @@ map "/echo" do
   }
 end
 
-
-map("/") { run Rack::File.new("#{Root}/test/index.html") }
+run lambda { |env|
+  if '/' == env['PATH_INFO']
+    frameworks = FRAMEWORKS
+    html = ERB.new(File.read("#{Root}/test/index.html")).result(binding)
+    [200, {'Content-Type' => 'text/html'}, [html]]
+  elsif env['PATH_INFO'] =~ %r{^/(.+)\.html$} && FRAMEWORKS.include?($1)
+    html = <<-HTML
+      <script type="text/javascript" src="/js/#{$1}.js"></script>
+      <script type="text/javascript" src="/js/index.js"></script>
+    HTML
+    [200, {'Content-Type' => 'text/html'}, [html]]
+  else
+    [404, {'Content-Type' => 'text/plain'}, ["Not found"]]
+  end
+}
