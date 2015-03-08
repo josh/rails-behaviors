@@ -4,8 +4,8 @@ each frameworks, (framework) ->
       setupFrame this, "/#{framework}.html"
 
   test "run default action if confirm returns true", 2, ->
-    @window.confirm = ->
-      ok true
+    @window.confirm = (message) ->
+      equal message, "Are you sure?"
       true
 
     @window.clickLink = ->
@@ -17,8 +17,8 @@ each frameworks, (framework) ->
     click link
 
   test "doesn't run default action if confirm returns false", 1, ->
-    @window.confirm = ->
-      ok true
+    @window.confirm = (message) ->
+      equal message, "Are you sure?"
       false
 
     @window.clickLink = ->
@@ -30,8 +30,8 @@ each frameworks, (framework) ->
     click link
 
   test "runs other handlers action if confirm returns true", 2, ->
-    @window.confirm = ->
-      ok true
+    @window.confirm = (message) ->
+      equal message, "Are you sure?"
       true
 
     link = @$("<a data-confirm='Are you sure?' href='javascript:void(0);'>")[0]
@@ -43,8 +43,8 @@ each frameworks, (framework) ->
     click link
 
   test "doesn't run other handlers action if confirm returns false", 1, ->
-    @window.confirm = ->
-      ok true
+    @window.confirm = (message) ->
+      equal message, "Are you sure?"
       false
 
     link = @$("<a data-confirm='Are you sure?' href='javascript:void(0);'>")[0]
@@ -55,15 +55,54 @@ each frameworks, (framework) ->
 
     click link
 
-  test "works with <button> elements as well", 1, ->
-    @window.confirm = ->
-      ok true
+  test "submit form if <button> confirm returns true", 2, ->
+    @window.confirm = (message) ->
+      equal message, "Are you sure?"
       true
 
-    @window.clickLink = ->
+    @$("<form><button data-confirm='Are you sure?'></form>").appendTo(@document.body)
+
+    @$(@document).on 'submit.test', ->
       ok true
+      false
 
-    button = @$("<button type='button' data-confirm='Are you sure?'>")[0]
-    @document.body.appendChild button
+    click @$("button")[0]
 
-    click button
+  test "cancel form submit if <button> confirm returns false", 1, ->
+    @window.confirm = (message) ->
+      equal message, "Are you sure?"
+      false
+
+    @$("<form><button data-confirm='Are you sure?'></form>").appendTo(@document.body)
+
+    @$(@document).on 'submit.test', ->
+      ok false
+      false
+
+    click @$("button")[0]
+
+  test "submit form if <input type=submit> confirm returns true", 2, ->
+    @window.confirm = (message) ->
+      equal message, "Are you sure?"
+      true
+
+    @$("<form><input type=submit data-confirm='Are you sure?'></form>").appendTo(@document.body)
+
+    @$(@document).on 'submit.test', ->
+      ok true
+      false
+
+    click @$("input[type=submit]")[0]
+
+  test "cancel form submit if <input type=submit> confirm returns false", 1, ->
+    @window.confirm = (message) ->
+      equal message, "Are you sure?"
+      false
+
+    @$("<form><input type=submit data-confirm='Are you sure?'></form>").appendTo(@document.body)
+
+    @$(@document).on 'submit.test', ->
+      ok false
+      false
+
+    click @$("input[type=submit]")[0]
