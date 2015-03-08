@@ -12,7 +12,7 @@ each frameworks, (framework) ->
           env = JSON.parse env
 
         if @win.Zepto?
-          equal env['HTTP_ACCEPT'], "*/*;q=0.5, text/javascript, application/javascript"
+          equal env['HTTP_ACCEPT'].indexOf("*/*;q=0.5, text/javascript, application/javascript"), 0
         else
           equal env['HTTP_ACCEPT'], "*/*;q=0.5, text/javascript, application/javascript, application/ecmascript, application/x-ecmascript"
         start()
