@@ -30,7 +30,7 @@
 # <button type="submit" data-confirm="Are you sure?">Delete</a>
 # ```
 
-$(document).on 'click:prepare', 'a[data-confirm], button[data-confirm]', (event) ->
+$(document).on 'click:prepare', 'a[data-confirm], input[type=submit][data-confirm], button[data-confirm]', (event) ->
   if message = $(this).attr 'data-confirm'
     # Prompt message with native confirm dialog
     unless confirm message

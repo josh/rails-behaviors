@@ -80,3 +80,29 @@ each frameworks, (framework) ->
       false
 
     click @$("button")[0]
+
+  test "submit form if <input type=submit> confirm returns true", 2, ->
+    @window.confirm = (message) ->
+      equal message, "Are you sure?"
+      true
+
+    @$("<form><input type=submit data-confirm='Are you sure?'></form>").appendTo(@document.body)
+
+    @$(@document).on 'submit.test', ->
+      ok true
+      false
+
+    click @$("input[type=submit]")[0]
+
+  test "cancel form submit if <input type=submit> confirm returns false", 1, ->
+    @window.confirm = (message) ->
+      equal message, "Are you sure?"
+      false
+
+    @$("<form><input type=submit data-confirm='Are you sure?'></form>").appendTo(@document.body)
+
+    @$(@document).on 'submit.test', ->
+      ok false
+      false
+
+    click @$("input[type=submit]")[0]
